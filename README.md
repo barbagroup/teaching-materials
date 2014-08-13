@@ -2,7 +2,7 @@ Teaching Materials
 ==================
 A collection of documents on various topics related to scientific computing.
 
-For a tentative list of topics, look in the file Topics.md. 
+For a tentative list of topics, look in the file `Topics.md`. 
 Feel free to add to the list.
 
 Schedule
