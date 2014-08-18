@@ -7,5 +7,5 @@ Feel free to add to the list.
 
 Schedule
 --------
-Meeting every Wednesday at 2pm. Decide on the presenters and topics one week 
+Meeting every Wednesday at 10pm. Decide on the presenters and topics one week 
 in advance.
