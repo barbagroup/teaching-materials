@@ -12,6 +12,7 @@ Numerical Methods
 * Runge-Kutta method
 * Multigrid method
 * Boundary Element Method
+* Essentially non-oscillatory schemes
 
 Programming
 -----------
@@ -21,6 +22,7 @@ Programming
   * Single-core optimisation
   * SSE
   * MPI
+  * OpenMP
 * GPU Computing
   * CUDA
   * OpenCL
@@ -35,10 +37,8 @@ General Topics
   * Calculating order of convergence
 * Academic writing
 
-
 Computational Fluid Dynamics
 ----------------------------
-* Essentially Non-Oscillatory schemes
 * Turbulence models
   * Smagorinsky
   * Dynamic subgrid-scale model
