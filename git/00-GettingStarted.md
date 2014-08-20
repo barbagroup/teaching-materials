@@ -1,4 +1,4 @@
-Using `git` for version control
+Using Git for version control
 ===============================
 
 *Version control* is a method to keep track of changes that we introduce to a 
@@ -6,16 +6,16 @@ set of files or documents that we use. This is especially useful when writing
 code because most code is written and improved through incremental changes. 
 Version control allows us to compare newer versions of code with older 
 versions, and investigate when certain changes were made that may have caused 
-the code to malfunction. `git` is a one such version control software, which 
+the code to malfunction. Git is a one such version control software, which 
 was created by Linus Torvalds to help with writing the Linux kernel.
 
 Version control systems store files in a directory known as a repository. Apart 
 from the files, a repository also contains information about the history of 
 each file, and all the edits that were made. In this tutorial, we will learn 
-how to create a `git` repository, add files to it, make changes to those files, 
+how to create a Git repository, add files to it, make changes to those files, 
 and record the history of those changes.
 
-Creating a `git` repository
+Creating a Git repository
 ---------------------------
 
 We first start with some new code in a folder. Create a folder and add a Python 
@@ -34,7 +34,7 @@ print "Hello world!"
 ```
 
 Exit the text editor. Now we have a folder called `new_repo` with the script 
-`HelloWorld.py` in it. We want to convert this folder into a `git` repository. 
+`HelloWorld.py` in it. We want to convert this folder into a Git repository. 
 This is done easily:
 
 ```shell
@@ -42,7 +42,7 @@ This is done easily:
 ```
 
 This command creates the hidden directory `.git` inside `new_repo`, which 
-stores all the information required for the `git` repository. We can check the 
+stores all the information required for the Git repository. We can check the 
 status of this repository using the command:
 
 ```shell
@@ -69,7 +69,7 @@ in the repository. Each snapshot is referred to as a *commit*. The act of
 saving a snapshot is referred to as *committing changes*.
 
 As you can see, the above message is pretty informative and helpful. This is 
-generally true with most of the output that `git` gives. The `git status` 
+generally true with most of the output that Git gives. The `git status` 
 command tells us that we are on the branch named *master*, which is the default 
 name given when we create a new repository. "Initial commit" means that we are 
 yet to commit any changes to this repository. Creating a repository from a 
@@ -102,7 +102,7 @@ the file to what is known as the *staging area*. This is where all the changes
 to the files that are ready to be committed are stored. All files in the staging 
 area are listed under "Changes to be committed:". We can see that 
 `HelloWorld.py` has been added to this list. Suppose we decided that we 
-actually do not want to commit this file, `git` also tells us how to remove it
+actually do not want to commit this file, Git also tells us how to remove it
 from the staging area: `(use "git rm --cached <file>..." to unstage)`. But we 
 don't want to do that right now.
 
@@ -245,7 +245,7 @@ message.
 Uploading your repository to Github
 -----------------------------------
 
-One of the nifty features of `git` is that it allows you to copy the folder 
+One of the nifty features of Git is that it allows you to copy the folder 
 containing the repository to any other location, and all the information 
 regarding the history of the repository is also transferred automatically. It 
 also allows you to create a backup of your repository on a remote server. 
@@ -263,6 +263,7 @@ stored in the folder `.git` inside `new_repo`. Let's actually do that:
 ```shell
 > cd ..
 > mv new_repo alien_invasion
+> cd alien_invasion
 ```
 
 To avoid confusion, it's a good idea to give the Github repository the same 
@@ -276,11 +277,12 @@ existing repository to Github using the command line. The commands are:
 > git push -u origin master
 ```
 
-`git remote add` is the command used to link the local repository to a remote 
-location. To do this, we need to provide the name for the remote repository, 
-and the address of the server where it is hosted. In the above, we name the 
-remote repository `origin`, and specify the URL created by Github. A repository 
-can have multiple remotes if required (just specify a different name and URL).
+`git remote add` is the command used to specify information about the remote 
+repository to which you want to upload. To do this, we need to provide a name for the 
+remote, and the address of the server where it is hosted. In the 
+above, we name the remote repository `origin`, and specify the URL created by 
+Github. A repository can have multiple remotes if required (just specify a 
+different name and URL).
 
 `git push` is used to push all changes from the local repository to the remote 
 repository. For the time being, we shall ignore the `-u` flag and run the 
@@ -289,7 +291,109 @@ following commands to upload the repository to Github:
 ```shell
 > git remote add origin https://github.com/anushkrish/alien_invasion.git
 > git push origin master
+Username for 'https://github.com': anushkrish
+Password for 'https://anushkrish@github.com':
+To https://github.com/anushkrish/alien_invasion.git
+ * [new branch]      master -> master
 ```
 
 The two arguments that are passed to the `git push` command are the name of the 
-remote, and the name of the branch that we want to push.
+remote, and the name of the branch that we want to push. You will be prompted 
+for your credentials, and a new branch (also named *master*) will be created 
+at the remote repository using the information from the local repository. You 
+can now view the files, branches, commits and other information about the 
+repository on Github.
+
+But now, you realise that the message will be a lot easier to read if it was 
+addressed to the people rather than the planet, and with better punctuation. 
+Modify the contents of `HelloWorld.py` to:
+
+```python
+print "Greetings, Earth-dwellers! We come in peace."
+```
+
+And commit the changes:
+
+```shell
+> git add HelloWorld.py
+> git commit -m "Pedantic about punctuation."
+> git status
+# On branch master
+nothing to commit (working directory clean)
+```
+
+I have commited the change to my local repository, but have not yet pushed it 
+to Github. This means that the Github repository is outdated. How do I know 
+this? I can check the logs for each branch:
+
+```shell
+> git log master --oneline
+67b3f0e Pedantic about punctuation.
+e9d7cba Edit the message to sound more friendly.
+16bb3d3 First commit. Add HelloWorld.py.
+> git log origin/master --oneline
+e9d7cba Edit the message to sound more friendly.
+16bb3d3 First commit. Add HelloWorld.py.
+```
+
+By specifying the name of the branch after `git log`, you can view the commit 
+history for that specific branch. The option `--oneline` prints only brief 
+information about the commits on one line each. This consists of the first 7 
+characters of the hash followed by the first line from the commit message.
+
+When a repository has a remote, Git also stores information about the remote 
+in the local folder. This is why we can view the log for the branch 
+`origin/master` by running `git log origin/master` in the local folder.
+
+For the sake of convenience, Git provides the functionality to automatically 
+track differences between a local branch and its remote. A local branch can be 
+made to track a remote branch using the following command:
+
+```shell
+> git branch --set-upstream master origin/master
+```
+
+The above command works with Git version 1.7. From version 1.8 onwards, use 
+`git branch -u origin/master master`.
+
+Earlier, we came across the command `git push -u origin master` in the 
+instructions to push an existing repository to Github. The `-u` flag in that 
+command is used to set up upstream tracking with the remote repository while 
+performing the push to it. Subsequent pushes to the remote do not require the 
+`-u` flag. Subsequent pushes do not even need the remaining two arguments 
+`origin master` because the default behaviour of `git push` is to push changes 
+to the remote that the current branch is tracking.
+
+After setting the upstream branch to track, check the status of the local 
+branch:
+
+```shell
+> git status
+# On branch master
+# Your branch is ahead of 'origin/master' by 1 commit.
+#
+nothing to commit (working directory clean)
+```
+
+The output has an extra line providing the status of the current branch with 
+respect to the remote branch that it is tracking. The local branch `master` is 
+ahead of the remote `origin/master` by 1 commit. Push the changes:
+
+```shell
+> git push
+Username for 'https://github.com': anushkrish
+Password for 'https://anushkrish@github.com':
+To https://github.com/anushkrish/alien_invasion.git
+   e9d7cba..67b3f0e  master -> master
+```
+
+We can use the shorthand `git push` here since we've already set the upstream 
+branch. Check the status again:
+
+```shell
+> git status
+# On branch master
+nothing to commit (working directory clean)
+```
+
+The remote is now up-to-date.
