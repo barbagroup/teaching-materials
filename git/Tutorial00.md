@@ -244,3 +244,52 @@ message.
 
 Uploading your repository to Github
 -----------------------------------
+
+One of the nifty features of `git` is that it allows you to copy the folder 
+containing the repository to any other location, and all the information 
+regarding the history of the repository is also transferred automatically. It 
+also allows you to create a backup of your repository on a remote server. 
+Services like [Github](https://github.com/) run servers where you can host your 
+repositories for free. Of course, you could set up your own server if you 
+wanted.
+
+Create an account on Github and follow the [instructions]
+(https://help.github.com/articles/creating-a-new-repository) to create your own 
+Github repository. You can name the repository whatever you want. It does not 
+have to be `new_repo`. You can even rename the folder `new_repo` on your 
+computer, and it will not affect the repository, since all its information is 
+stored in the folder `.git` inside `new_repo`. Let's actually do that:
+
+```shell
+> cd ..
+> mv new_repo alien_invasion
+```
+
+To avoid confusion, it's a good idea to give the Github repository the same 
+name as the folder on your computer.
+
+After the repository is created, Github will display instructions to push an 
+existing repository to Github using the command line. The commands are:
+
+```shell
+> git remote add origin https://github.com/anushkrish/alien_invasion.git
+> git push -u origin master
+```
+
+`git remote add` is the command used to link the local repository to a remote 
+location. To do this, we need to provide the name for the remote repository, 
+and the address of the server where it is hosted. In the above, we name the 
+remote repository `origin`, and specify the URL created by Github. A repository 
+can have multiple remotes if required (just specify a different name and URL).
+
+`git push` is used to push all changes from the local repository to the remote 
+repository. For the time being, we shall ignore the `-u` flag and run the 
+following commands to upload the repository to Github:
+
+```shell
+> git remote add origin https://github.com/anushkrish/alien_invasion.git
+> git push origin master
+```
+
+The two arguments that are passed to the `git push` command are the name of the 
+remote, and the name of the branch that we want to push.
