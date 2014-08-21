@@ -8,28 +8,59 @@ Numerical Methods
  * Diagonal
  * Incomplete LU 
  * Incomplete Cholesky
-* Fast multipole method
 * Runge-Kutta method
-* Multigrid method
+* Multigrid methods
 * Boundary Element Method
 * Essentially non-oscillatory schemes
+* Spectral methods
+ * Fourier
+ * Chebyshev 
+* Finite element method
+ * Continous Galerkin
+ * Discontinous Galerkin
+ * Spectral element
+* Radial Basis Functions
+* Fast multipole method
 
 Programming
 -----------
 * git
 * iPython Notebook
+* gdb
+* valgrind
 * High performance computing
-  * Single-core optimisation
-  * SSE
-  * MPI
-  * OpenMP
+ * Single-core optimisation
+ * SSE
+ * OpenMP
+ * MPI
 * GPU Computing
-  * CUDA
-  * OpenCL
+ * CUDA
+ * OpenCL
 * Colonial One
-  * Slurm
-  * Tmux
+ * Slurm
+ * Tmux
 * bash
+* C++
+  * Standard template library
+  * C++11 (and 14?)
+* Julia
+* Travis CI
+
+Computer Science
+----------------
+* Floating-point arithmetic
+ * Floating-point representation
+ * Machine precision
+* Algorithms & Data Structures
+ * Search
+ * Sort
+ * Balanced binary tree
+* Computational geometry
+ * Intersections
+ * Areas and volumes
+ * Quadtrees/Octrees
+* Fast Fourier Transform
+* Parallel algorithms
 
 General Topics
 --------------
@@ -43,3 +74,4 @@ Computational Fluid Dynamics
   * Smagorinsky
   * Dynamic subgrid-scale model
 * Boundary conditions
+* Q-criterion
