@@ -74,3 +74,5 @@ To merge the changes from the new branch, use
 ```Bash
 git merge <branch_name>
 ```
+
+[Learn git branching](http://pcottle.github.io/learnGitBranching/)
