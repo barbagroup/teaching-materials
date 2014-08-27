@@ -53,3 +53,11 @@ git branch
 Now, any changes we make will not appear in master, but on the new branch.  We have created a new path, but both paths will share a common "step" which is the last commit we make before we create the branch.
 
 ![image](./images/git-tutorial_branching-merging.png)
+
+When we make a commit, the branch we stand on will advance by one step, while the other branches will remain static.  
+
+###Merging
+
+Once we are satisfied that the new feature on our new branch works well, we can `merge` it into master.  This will take the second path we created with the `git branch` command and make it rejoin master.
+
+![image](./images/git-tutorial_branching-merge.png)
