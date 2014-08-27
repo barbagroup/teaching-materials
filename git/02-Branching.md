@@ -49,3 +49,7 @@ git branch
 * gil
   master
 ```
+
+Now, any changes we make will not appear in master, but on the new branch.  We have created a new path, but both paths will share a common "step" which is the last commit we make before we create the branch.
+
+![image](./images/git-tutorial_branching-merging.png)
