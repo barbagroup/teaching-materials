@@ -61,3 +61,16 @@ When we make a commit, the branch we stand on will advance by one step, while th
 Once we are satisfied that the new feature on our new branch works well, we can `merge` it into master.  This will take the second path we created with the `git branch` command and make it rejoin master.
 
 ![image](./images/git-tutorial_branching-merge.png)
+
+To perform a merge, first `git checkout` the branch you want to merge *into*.  Since we will merge into `master` we
+
+```Bash
+git checkout master
+Switched to branch 'master'
+```
+
+To merge the changes from the new branch, use
+
+```Bash
+git merge <branch_name>
+```
