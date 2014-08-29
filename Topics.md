@@ -39,13 +39,26 @@ Programming
 * Colonial One
  * Slurm
  * Tmux
-* bash
 * C++
   * Standard template library
   * C++11 (and 14?)
 * Julia
 * Travis CI
-* Make files
+* makefile
+
+Linux sysadmin stuff
+--------------------
+* rsync
+* ssh
+* sudo
+* building from source
+* bash
+    * piping | > <
+    * grep
+    * PATH
+    * export
+    * alias
+    * file permissions
 
 Computer Science
 ----------------
