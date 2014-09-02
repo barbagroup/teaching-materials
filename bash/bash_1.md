@@ -43,12 +43,13 @@ also, we can use octonary reference to set permission, for example: rw- = 4+2+0 
 -rw-r--r--@ 1 guest  nogroup   137B Sep  2 15:06 bash_1.md
 ```
 
+
 PATH
 ---------------
 PATH is an *environmental variable* that tells the shell which directories to search for executable files.
 The value of PATH is a series of absolute paths separated by colon. 
 
-**Manipulate Shell Variables & Functions** -> *set*
+**Display the Value** -> *set* / *env* / *echo*
 
 ```shell
 > set
@@ -67,3 +68,32 @@ USER=tingyu66
 PATH=/Users/tingyu66/anaconda/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/opt/X11/bin:/usr/texbin
 ```
 
+**Change PATH Variable** -> *export*
+
+```shell
+> export PATH=$PATH:/Users/tingyu66/git/barbagroup/teaching-materials/bash
+```
+
+If we want to make the change permenantly, we need to edit the user's *.bash_profile* file in the user's home directory.
+
+
+
+Alias
+-------------------
+ *alias* is a command which enables a replacement of a string by another string. 
+ 
+ **Create & Remove an Alias** -> *alias* & *unlias*
+ 
+ syntax: alias **[name]**='[*a command or string*]', for example:
+ 
+ ```shell
+ > alias ll='ls -l'
+ > ll
+ -rw-r--r--@ 1 tingyu66  staff   137B Sep  2 15:06 bash_1.md
+ ```
+ 
+ it only works on current work session, and if we want to remove the alias, we can use *unalias*:
+ 
+ ```shell
+ > unalias ll
+ ```
