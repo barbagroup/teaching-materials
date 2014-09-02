@@ -82,7 +82,7 @@ Alias
 -------------------
  *alias* is a command which enables a replacement of a string by another string. 
  
- **Create & Remove an Alias** -> *alias* & *unlias*
+ **Create & Remove an Alias** -> *alias* & *unalias*
  
  syntax: alias **[name]**='[*a command or string*]', for example:
  
@@ -91,9 +91,18 @@ Alias
  > ll
  -rw-r--r--@ 1 tingyu66  staff   137B Sep  2 15:06 bash_1.md
  ```
- 
- it only works on current work session, and if we want to remove the alias, we can use *unalias*:
+ *alias* command without any argument shows all the aliases that have been defined.
+ If we want to remove the alias, we can use *unalias*:
  
  ```shell
  > unalias ll
  ```
+ 
+ The script above only works on current work session, in order to make an alias permenant and global, we can add it into */etc/bashrc*.
+ 
+ 
+ 
+Redirect & Piping
+------------------
+
+ 
