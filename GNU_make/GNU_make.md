@@ -22,12 +22,12 @@ Consider the following example. If there are three source files A.F90, B.F90 and
 
 The standard procedure of the compilation is:
 
-’‘’shell
+```
 $ gfortran B.F90 C.F90 -c 
 $ ar rc libC.a c.o 
 $ gfortran A.F90 -c 
 $ gfortrna A.o B.o -L ./ -lC -llapack -o test.out 
-‘’‘ 
+``` 
 
 Each time we want to build this program without existing old build, we have to type the commands described above.  If we only need to build this program once then that's fine.  But how if we have to delete the built program and build it from beginning?  Or what if there are some source codes being modified and thus we have to re-built it? Typing such commands seems to be annoying.  Futhermore, sometimes we have to change between several building modes that use different compilation flags, such as *release mode* or *debug mode*, it will be a pain to type those complicated flags repeatedly.  That's why we have to use a controller like **GNU make**.
 
