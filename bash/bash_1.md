@@ -1,3 +1,51 @@
+Redirect & Piping
+------------------
+
+There are always three default files open, stdin (the keyboard), stdout (the screen), and stderr (error messages output to the screen). These, and any other open files, can be redirected. Redirection simply means capturing output from a file, command, program, script, or even code block within a script and sending it as input to another file, command, program, or script.
+
+A following example will show how redirection works:
+*wc* command stands for wordcount, and * is the wildcard character.
+
+```shell
+> wc -l *.md
+       8 Calendar.md
+      11 README.md
+       3 Test.md
+      91 Topics.md
+     113 total
+```
+Flag "*-l*" only counts the number of lines in the *.md* files. We can use ">" to write/overwrite the output into a file:
+
+```shell
+> wc -l *.md > length.txt
+```
+
+There is no output on the screen since we redirect the output to *length.txt* file. Then if we want to find the .md file with the minimum lines, we can use *sort* command. *head -1* command gives the first line of a file.
+
+```shell
+> sort lengths.txt > sorted_length.txt
+> cat sorted_length.txt
+       3 Test.md
+       8 Calendar.md
+      11 README.md
+      91 Topics.md
+     113 total
+> head -1 lengths.txt
+       3 Test.md
+```
+
+In this method, we created several temporary files which are not necessary, instead we can use pipes to get rid of *length.txt* and *sorted_length.txt* file.
+
+```shell
+> wc -l *.md | sort | head -1
+       3 Test.md
+```
+
+By using "|" as a pipe, we get the same result. A pipe uses the output of the left side as the input of the right side, without creating the temporary files.  
+
+As a supplement, ">>" adds the standard output at the end of an existing file, rather than overwrites the previous file.
+
+
 File Permission
 ----------------------
 **Permission Groups**
@@ -102,50 +150,5 @@ Alias
  
  
  
-Redirect & Piping
-------------------
-
-There are always three default files open, stdin (the keyboard), stdout (the screen), and stderr (error messages output to the screen). These, and any other open files, can be redirected. Redirection simply means capturing output from a file, command, program, script, or even code block within a script and sending it as input to another file, command, program, or script.
-
-A following example will show how redirection works:
-*wc* command stands for wordcount, and * is the wildcard character.
-
-```shell
-> wc -l *.md
-       8 Calendar.md
-      11 README.md
-       3 Test.md
-      91 Topics.md
-     113 total
-```
-Flag "*-l*" only counts the number of lines in the *.md* files. We can use ">" to write the output into a file:
-
-```shell
-> wc -l *.md > length.txt
-```
-
-There is no output on the screen since we redirect the output to *length.txt* file. Then if we want to find the .md file with the minimum lines, we can use *sort* command. *head -1* command gives the first line of a file.
-
-```shell
-> sort lengths.txt > sorted_length.txt
-> cat sorted_length.txt
-       3 Test.md
-       8 Calendar.md
-      11 README.md
-      91 Topics.md
-     113 total
-> head -1 lengths.txt
-       3 Test.md
-```
-
-In this method, we created several temporary files which are not necessary, instead we can use pipes to get rid of *length.txt* and *sorted_length.txt* file.
-
-```shell
-> wc -l *.md | sort | head -1
-       3 Test.md
-```
-
-By using "|" as a pipe, we get the same result. A pipe uses the output of the left side as the input of the right side, without creating the temporary files.  
-
 
 
