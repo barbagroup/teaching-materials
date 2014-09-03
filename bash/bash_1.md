@@ -46,6 +46,44 @@ By using "|" as a pipe, we get the same result. A pipe uses the output of the le
 As a supplement, ">>" adds the standard output at the end of an existing file, rather than overwrites the previous file.
 
 
+grep
+-------------------------
+*grep* command is used to find and print lines in files that match a pattern.
+
+syntax: *grep* [*pattern*] [*files*]
+
+```shell
+> grep not story
+Is not the true Tao, until
+"My Thesis" not found.
+Today it is not working
+> grep day story
+Yesterday it worked
+Today it is not working
+```
+**flags**:
+- -w match the whole word
+- -n prefix with line numbers
+- -i case insensitive
+- -v invert and print non-matches
+
+```shell
+> grep -w day story
+> grep -n not story
+2:Is not the true Tao, until
+7:"My Thesis" not found.
+10:Today it is not working
+> grep -i -v the story
+You bring fresh toner.
+
+With searching comes loss
+
+Yesterday it worked
+Today it is not working
+Software is like that.
+```
+
+
 File Permission
 ----------------------
 **Permission Groups**
