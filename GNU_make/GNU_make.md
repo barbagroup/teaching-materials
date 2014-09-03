@@ -1,18 +1,7 @@
 # Introduction to GNU ***make*** #
 
-------------------------------------
-## What is *make*? ##
-
-"The ***make*** utility automatically determines which pieces of a large program need to be recompiled, and issues commands to recompile them."            *~ p.1, GNU Make Manual[1]*
-
-A ***make*** utility is a controller that controls how the executable and other non-source files (like objective files or libraries) be generated from source files*[2]*. With well-defined rules and scripts, users can simply use a single command to build the whole program rather than manually compile each source file by several command and complicated flags. 
-
-It is not simplely just a tool that help developers easily build the program by one single command.  The main purpose of the ***make*** is to speed up and manage the re-compilation procedures. If the size of the program is small, we can directly re-compile all source files because it may not cost too much time.  When it comes to re-compilation of a huge and complicated program, however, compiling the all source files will cost a lot of time.  The ***make*** then will automatically determine which souce/object files should be re-compiled. In development of large programs, the ***make*** therefore plays an important role.
-
-In fact, most visualized IDEs in Windows system have their own ***make*** utilities. However, for Linux users, we have to use standalone ***make*** utilities. There are several standalone ***make*** utilities: SunPro make, pmake, GNU make, nmake etc.  The GNU make is a standard tool for Linux. We will introduce GNU make in this notebook.
-
------------------------------
-## Why do we need *make*? ##
+---------------------------------------------------
+## Why do we need *make*? What is *make*? ##
 
 Consider the following example. If there are three source files A.F90, B.F90 and C.F90, and 
 
@@ -21,17 +10,26 @@ Consider the following example. If there are three source files A.F90, B.F90 and
 * finally the main program in A.F90 has to be linked to module B and library C
 
 The standard procedure of the compilation is:
-
 ```
-$ gfortran B.F90 C.F90 -c 
-$ ar rc libC.a c.o 
-$ gfortran A.F90 -c 
-$ gfortrna A.o B.o -L ./ -lC -llapack -o test.out 
+    $ gfortran B.F90 C.F90 -c 
+    $ ar rc libC.a c.o 
+    $ gfortran A.F90 -c 
+    $ gfortrna A.o B.o -L ./ -lC -llapack -o test.out 
 ``` 
+It looks fine because there are only four compilation commands. But how if we have 10, 50, 100, or even thousands of source files? Typing each compilation command for each source file seems impractical.
 
-Each time we want to build this program without existing old build, we have to type the commands described above.  If we only need to build this program once then that's fine.  But how if we have to delete the built program and build it from beginning?  Or what if there are some source codes being modified and thus we have to re-built it? Typing such commands seems to be annoying.  Futhermore, sometimes we have to change between several building modes that use different compilation flags, such as *release mode* or *debug mode*, it will be a pain to type those complicated flags repeatedly.  That's why we have to use a controller like **GNU make**.
+Futhermore, if we want to rebuilt this program after some modifications, we can again type these four commands in termal, or we can also only compile the modified source file and then linked all object file. But both of these choices have the disadvantages. Re-building the program from the first source file to the final one will take a lot of time and be annoying. And only re-compiling the modified files sometimes is also annoying because we have to determine which files must be re-compiled manually. That's why we need a tool to help us automatically determine how to re-build the program. That tool is ***make***.
 
-In additions, combining ***make*** with some simple shell script, **make** can let users manage the built files or do something like **clean all built files by one command**! 
+>"The ***make*** utility automatically determines which pieces of a large program need to be recompiled, and issues commands to recompile them."            *~ p.1, GNU Make Manual[1]*
 
+>A ***make*** utility is a controller that controls how the executable and other non-source files (like objective files or libraries) be generated from source files*[2]*.
+
+Besides, sometimes we have to change between several building modes using different compilation flags, such as *release mode* or *debug mode*, it will be a pain to type those complicated flags repeatedly.  We can easily change the build mode by ***make***.
+
+Also, combining ***make*** with some simple shell script, **make** can let users manage the built files or do something like **clean all built files by one command**! 
+
+In fact, most visualized IDEs in Windows system have their own ***make*** utilities behind the GUI. However, for Linux users, we have to use standalone ***make*** utilities. There are several standalone ***make*** utilities: SunPro make, pmake, GNU make, nmake etc.  The GNU make is a standard tool for Linux. We will introduce GNU make in this notebook.
+
+-------------------------------
 ## How does *make* work? ##  
 1234564864684
