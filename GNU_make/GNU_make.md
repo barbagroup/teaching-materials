@@ -115,16 +115,16 @@ The basic makefile for the program we mentioned in the beginning may looks like 
 
 In this file, there are 3 main targets: **ex1**, **PrintHello.o**, and **main.o**.  Because the command of these three targets all output files, the name of these three target are also the name of the output files from these target. Each time we execute the command ```$ make```, the ***make*** will go through the following steps.  
 
-**Step 1. : **  
+**Step 1.** :   
 The ***make*** starts from the **target ex1** by default. It will first check whether the dependencies need to be re-generated, or says, are update-to-date. In this case, it will check the **file PrintHello.o** first and then the **file main.o**.
 
-**Step 2. : **  
+**Step 2.** :   
 The ***make*** goes to the **target PrintHello.o**. It won't check whether the dependency needs to be re-generated or not, because the dependency is now a source file, i.e. **PrintHello.c**. It will then check the version of the **file PrintHello.o**. If the **PrintHello.c** is newer than the **file PrintHello.o**, the shell commands of this target -- ```gcc -g3 -Wall -pedantic-errors -o PrintHello.o PrintHello.c -c``` will be executed. The **file PrintHello.o** thus is updated. Otherwise, if **PrintHello.c** is older than the **file PrintHello.o**, nothing will happen. Of course, if **PrintHello.o** doesn't exist, ***make*** still executes the shell command to generate that. 
 
-**Step 3. : ** 
+**Step 3.** :  
 Almost the same with Step 2, but the target now is **main.o**.
 
-**Step 4. :**  
+**Step 4.** :  
 Finally, the ***make*** goes back to the **target ex1** and then check whether the dependencies now are newer than the **file ex1** or not. If it is true, or the **file ex1** doesn't exist, the shell command will be executed.
 
 At line 12, there is an extra target called **clean**. **clean** is apparently not a name of an output file, because the shell command of this target doesn't output files. We can run command ```$ make clean``` in terminal to directly launch this target. From the line 13, we can see what this target will do is to remove all generated output files.
@@ -151,16 +151,16 @@ At line 12, there is an extra target called **clean**. **clean** is apparently n
 	16 #=============================End of File==============================
 ```
 
-**PHONY : **  
+**PHONY** :   
 Targets that don't output files shoule be listed following the keyword **.PHONY**.  (Try: create a balnk file call **clean** and see what will happen.)
 
-**Implicit Rules : **  
+**Implicit Rules** :   
 There are implicit rules that can help users simplify their makefiles. The simplest implicit rule is shown at the line 9. This can be used when the names of output files(not including extension names) are the same as that of source files or input files. For other implicit rules, please refer to **GNU make Manual**.
 
-**$@** and **$<**:  
+**$@** and **$<** :  
 These two symbols represent the name of output file (i.e. the target name) and the first dependency (in this case, the source file) respectively.
 
-**-** and **@**:  
+**-** and **@** :  
 Symbol "-" means ignoring error messages and continuing the subsequent commands.  And symbol "@" represents showing only error message. (Try: take off the "-" in the line 12 and see what will happen if **ex2** doesn't exist.; take off the "@" in the line 12 and see the results when **ex2** exists.) 
 
 ### Ex 3: Variables (Macro)
@@ -187,7 +187,7 @@ Symbol "-" means ignoring error messages and continuing the subsequent commands.
 	20
 	21 #=============================End of File==============================
 ```
-**Variables (or Macro) : **
+**Variables (or Macro)** : 
 
 * Use "**=**" to assign values to variables and ${} or $() to get the values of variables. ***Important***: *the value of a variable depends on the final assignment in **makefile**, not the location of the variable.* For example, in the following codes, the **y** will be *xyz*, rather than *foo*. :
 
@@ -198,9 +198,9 @@ Symbol "-" means ignoring error messages and continuing the subsequent commands.
 ```  
  
 * There are also other symbols for assigning values. The most often seen symbols are **+=**, **?=**, and **:=**. 
-	1. **:=**: Using this symbol to assign values, the values of the variable will depend on the location.
-	1. **?=**: If the variable is undefined, than this assigns values to it. Otherwise the **make** keep the old value.
-	3. **+=**: add a new value to the original values. For example: `a = ff`, then after `a += gg`, **a** will become *ff gg*. 
+	1. **:=** : Using this symbol to assign values, the values of the variable will depend on the location.
+	1. **?=** : If the variable is undefined, than this assigns values to it. Otherwise the **make** keep the old value.
+	3. **+=** : add a new value to the original values. For example: `a = ff`, then after `a += gg`, **a** will become *ff gg*. 
 * The values of a variable can be change when we run `$ make` command. For example: `$ make BIN='exHAHAHA'`. The **BIN** during this execution will be **exHAHAHA** instead of **ex3**.
 * The **make** can also get the environmental variables of current operating system, such as ${PATH} etc.
 
@@ -254,12 +254,12 @@ Symbol "-" means ignoring error messages and continuing the subsequent commands.
 	46 #=============================End of File==============================
 ```
 
-**Shell Scripts in the *make*:**  
+**Shell Scripts in the *make*** :  
 
 * When the ***make*** executes the shell commands, it starts **a new shell** for **each line**. Therefore, some commands have to be written in the same line and be connected by the symbol "**;**". For example, the **if ... ; then ...; fi** commands. They can not be executed separately in different shell.
 * If a shell returns any error to the ***make*** in the end of execution, the ***make*** will stop the execution. So some commands **can not** run in the same shell using "**;**". For example, if directory **ABC** doesn't exist, running `cd ./ABC/ ; echo ${PATH}`, the **make** will still execute `echo ${PATH}`, though it may got an error message `cd: ./ABC: No such file or directory`. To avoid this problem, we can use "**&&**" rather than "**;**".
 
-**GNE *make* Functions:**
+**GNE *make* Functions** :  
 
 There are some built-in functions in GNU make. The `$(foreach i, ${OBJ}, ${OPATH}/${i})` in the line 35 and 37 is an example. **foreach** is a function. It is something like **for-loop** in python. **i** is the variable, and **${OBJ} is the list. **${OPATH}/${i}** is the command it has to execute during each loop. If we translate `$(foreach i, ${OBJ}, ${OPATH}/${i})` into python, it will look like:
 
@@ -276,7 +276,8 @@ There are some built-in functions in GNU make. The `$(foreach i, ${OBJ}, ${OPATH
 ```
 For more functions, please refer to the **GNU make Manual**. Wihtout the help of the GNU make functions, we can still utilize the ***make*** to do many things.
 
-**Local Variables Defined in a Target:**  
+**Local Variables Defined in a Target** :  
+
 In the line 19, 20, 24 and 25, we define several local variables. These variables only exist in their targets. So if we need other targets to use them, we have to figure out some ways to pass them. There are many approaches, one of them is to pass them by `$ make <target> [var1 = '...' var2 = '...']`.
 
 -------------------------------
