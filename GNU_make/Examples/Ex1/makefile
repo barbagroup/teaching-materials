@@ -10,6 +10,6 @@ PrintHello.o: PrintHello.c
 main.o: main.c HaHa.h
 	gcc -g3 -Wall -pedantic-errors -o main.o main.c -c
 clean:
-	rm ex1 main.o PrintHello.o
+	rm ex1 main.o PrintHello.oz
 
 #=============================End of File==============================
