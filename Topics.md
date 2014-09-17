@@ -23,12 +23,13 @@ Numerical Methods
 * Fast multipole method
 
 
-- [x] iPython Notebook
-- [ ] gdb
+
 
 Programming
 -----------
 * [x] git
+* [x] iPython Notebook
+* [ ] gdb
 * valgrind
 * High performance computing
  * Single-core optimisation
