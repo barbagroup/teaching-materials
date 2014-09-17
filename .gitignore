@@ -1,3 +1,7 @@
 .ipynb_checkpoints/*
 
 IPython/.ipynb_checkpoints/*
+
+.directory
+
+GNU_make/.directory
