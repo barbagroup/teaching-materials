@@ -40,69 +40,65 @@ Consider the following example. If the program is composed of 3 files:
 The standard procedure of the compilation is:
 
 ```C
-    $ gcc -g3 -Wall -pedantic-errors -o PrintHello.o PrintHello.c -c
-    $ gcc -g3 -Wall -pedantic-errors -o main.o main.c -c
-    $ gcc -g3 -Wall -pedantic-errors -o binary main.o PrintHello.o
+	$ gcc -g3 -Wall -pedantic-errors -o PrintHello.o PrintHello.c -c
+	$ gcc -g3 -Wall -pedantic-errors -o main.o main.c -c
+	$ gcc -g3 -Wall -pedantic-errors -o binary main.o PrintHello.o
 ``` 
 
-It looks fine because there are only 3 commands. But how if we have 10, 50, 100, or even thousands of source files? Typing every command for each source file seems impractical.
+It looks fine because there are only 3 commands. But how if we have 10, 50, 100, or even more source files? Manually compiling each source file seems impractical. When the relationship between each sourcefile becomes more complicated, it is more difficult to manually compile them.
 
-And how about if we want to re-built this program after some modifications? Though we can re-compile only the modified source files and then link all object files, it may still takes much time doing so and may be painful, especial when the number of modified files is large, because we have to manually determine which files must be re-compiled. That's why we need a tool to help us automatically determine how to build/re-build the program. That tool is ***make***.
+How about if we want to re-built this program after some modifications on source files? Though we can re-compile the modified source files only, it may still takes long time to do so when there are lots of modified files. That's why we need a tool to help us automatically determine how to build/re-build the program. That tool is ***make***.
 
 >"The ***make*** utility automatically determines which pieces of a large program need to be recompiled, and issues commands to recompile them."            *~ p.1, GNU Make Manual[1]*
 
->A ***make*** utility is a controller that controls how the executable and other non-source files (like objective files or libraries) be generated from source files*[2]*.
+>"A ***make*** utility is a controller that controls how the executable and other non-source files (like objective files or libraries) be generated from source files" ~*[2]*.
 
-Futhermore, sometimes we have to change between several building modes using different compilation flags, such as *release mode* or *debug mode*, it will be a pain to type those complicated flags repeatedly. We can easily change the build mode by ***make***.
+Furthermore, usually we have to change the compiling flags for switching between several building modes, such as *release mode* or *debug mode*. It is not an efficient way to type those complicated flags repeatedly. We can easily switch the building mode by ***make***. By combining ***make*** with some simple shell script, ***make*** can also help users manage the built files or do something like cleaning all built files by one simple command.
 
-We can also combine ***make*** with some simple shell script, ***make*** can let users manage the built files or do something like **clean all built files by one simple command**! 
-
-Most visualized IDEs in Windows system have their own ***make*** utilities behind the GUI. However, for Linux users, we have to use standalone ***make*** utilities in CLI. There are several standalone ***make*** utilities: SunPro make, pmake, GNU make, nmake etc.  The ***GNU make*** is a standard built-in tool in Linux. We will introduce ***GNU make*** in this notebook.
+Most visualized IDEs in Windows system have their own ***make*** utilities behind the GUI. However, for Linux users, we have to use standalone ***make*** utilities in CLI. There are several standalone ***make*** utilities: SunPro make, pmake, GNU make, nmake etc.  The ***GNU make*** is a standard built-in tool in Linux. We will introduce ***GNU make*** here.
 
 -------------------------------
-## Basic Procedure of the *make* 
+## Basic Working flow of the *make* 
 
-The ***make*** follows the rules defined in a script file call ***makefile***. The basic component in a makefile is call ***target***: A ***target*** can be thought as an action. It looks like:  
-
-```
-    target name: dependencies of this target
-    <TAB>shell commands that will be executed for this target(action)
-```
-
-***target name***: 1) it could be the name of the output file after executing this target, or 2) it could be just a name of this action.
-
-***dependencies***: before the ***make*** execute this target, it will first check whether the dependencies exist or whether they are up-to-date. If not, the ***make*** will search the rest of targets in the makefile that can generate the needed dependencies.
-
-***commands***: the shell commands that will be executed in this action. For example, a compilation command.
-
-
-When we execute the command 
-``` 
-    $ make
-```
-in a terminal,  
-
-1. the ***make*** will search the current folder for the makefile.  
-2. After it find out the makefile, it will carry out the first target in the makefile **by default**.  
-3. And then it checks the dependencies, goes to the target that generate the dependencies if needed, and finally goes back to the first target and finish it.  
-
-The ***make*** will automatically check the version of files to determine if the files need to be regenerated: if target is newer than all dependencies, the target won't be re-generated. 
-
-We can also use another name for the file contains targets. Just use the command:
+The ***make*** follows the rules defined in a script file call ***makefile***. The basic component in a makefile is call ***target***. It looks like:  
 
 ```
-    $ make -f <other file name>
+	target name: dependencies of this target
+	< TAB >	shell commands that will be executed for this target
 ```
 
+***target name*** : 1) the name of the file outputed after executing this target, or 2) just the name of this action.
+
+***dependencies*** : the files that this target depends on; before the ***make*** execute this target, it will first check whether the dependencies exist or whether they are up-to-date.
+
+***commands*** : the shell commands that will be executed in this target. For example, a compilation command.
 
 
-### Ex 1: A Simplesit Makefile
+When we execute the command `$ make` in a terminal,  
+
+1. the ***make*** will search the current folder for the **makefile**.  
+2. After it locates the makefile, it will execute the first target in the **makefile** by default.  
+3. And then it checks the dependencies, goes to the target that output the dependencies if needed, and finally goes back to the first target and finish it.  
+
+The ***make*** will automatically check the version of files to determine if the files need to be re-generated: if a target is newer than all dependencies, the target won't be re-generated. 
+
+We can also use another name for the file contains targets or directly execute specific target from CLI. Just use these commands:
+
+```
+	$ make -f <other file name>
+```
+
+```
+	$ make <target name>
+```
+
+### Ex 1: A Simplest Makefile
 The basic makefile for the program we mentioned in the beginning may looks like this:  
 
 ```makefile  
 	 1 #======================================================================  
 	 2 # Title: ex1  
-	 3 # Purpose: simplest makefile  
+	 3 # Purpose: A Simplest Makefile  
 	 4 #======================================================================
 	 5
 	 6 ex1: PrintHello.o main.o
@@ -117,23 +113,21 @@ The basic makefile for the program we mentioned in the beginning may looks like 
 	15 #=============================End of File============================== 
 ```
 
-In this file, there are 3 targets: **ex1**, **PrintHello.o**, and **main.o**.  Because the command of these three targets all output files, the name of these three target are also the name of the output files from these target.
+In this file, there are 3 main targets: **ex1**, **PrintHello.o**, and **main.o**.  Because the command of these three targets all output files, the name of these three target are also the name of the output files from these target. Each time we execute the command ```$ make```, the ***make*** will go through the following steps.  
 
-Each time we execute the command ```$ make```, the ***make*** will go through the following steps.  
+**Step 1. : **  
+The ***make*** starts from the **target ex1** by default. It will first check whether the dependencies need to be re-generated, or says, are update-to-date. In this case, it will check the **file PrintHello.o** first and then the **file main.o**.
 
-Step 1.  
-The ***make*** starts from the target **ex1** by default. It will first check whether the dependencies need to be re-generated, or says, are update-to-date. In this case, it will check **PrintHello.o** first and then **main.o**.
+**Step 2. : **  
+The ***make*** goes to the **target PrintHello.o**. It won't check whether the dependency needs to be re-generated or not, because the dependency is now a source file, i.e. **PrintHello.c**. It will then check the version of the **file PrintHello.o**. If the **PrintHello.c** is newer than the **file PrintHello.o**, the shell commands of this target -- ```gcc -g3 -Wall -pedantic-errors -o PrintHello.o PrintHello.c -c``` will be executed. The **file PrintHello.o** thus is updated. Otherwise, if **PrintHello.c** is older than the **file PrintHello.o**, nothing will happen. Of course, if **PrintHello.o** doesn't exist, ***make*** still executes the shell command to generate that. 
 
-Step 2.  
-The ***make*** goes to the target **PrintHello.o**. It won't check whether the dependency needs to be re-generated, because the dependency is now a source file, i.e. **PrintHello.c**. It will only check the version of **PrintHello.o**. If **PrintHello.c** is newer than **PrintHello.o**, the shell commands of this target -- ```gcc -g3 -Wall -pedantic-errors -o PrintHello.o PrintHello.c -c``` will be executed. **PrintHello.o** thus is updated. Otherwise, if **PrintHello.c** is older than **PrintHello.o**, nothing will happen. Of course, if **PrintHello.o** doesn't exist, ***make*** still executes the shell command to generate that. 
-
-Step 3.  
+**Step 3. : ** 
 Almost the same with Step 2, but the target now is **main.o**.
 
-Step 4.  
-Finally, the ***make*** goes back to the target **ex1** and then check whether the dependencies now are newer than the **ex1** after went through Step 2 and 3. If it is true, or the file **ex1** doesn't exist, the shell command will be executed.
+**Step 4. :**  
+Finally, the ***make*** goes back to the **target ex1** and then check whether the dependencies now are newer than the **file ex1** or not. If it is true, or the **file ex1** doesn't exist, the shell command will be executed.
 
-At line 12, there is an extra target called **clean**. **clean** is apparently not a name of an output file. It is just the name of this target. We can run command ```$ make clean``` in termal to directly launch this target. From the line 13, we can see what this target will do is remove all generated output file.
+At line 12, there is an extra target called **clean**. **clean** is apparently not a name of an output file, because the shell command of this target doesn't output files. We can run command ```$ make clean``` in terminal to directly launch this target. From the line 13, we can see what this target will do is to remove all generated output files.
 
 -------------------------------
 ## Basic Skills 
@@ -157,11 +151,11 @@ At line 12, there is an extra target called **clean**. **clean** is apparently n
 	16 #=============================End of File==============================
 ```
 
-PHONY:  
-Targets that won't generate files shoule be listed following **.PHONY:** keyword.  (Try: create a balnk file call **clean** and see what will happen.)
+**PHONY : **  
+Targets that don't output files shoule be listed following the keyword **.PHONY**.  (Try: create a balnk file call **clean** and see what will happen.)
 
-Implicit Rules:  
-There are many implicit rules that can help users simplify their makefiles. The simplest implicit rule is shown at the line 9.  This can be used when the names of output file(not including extension names) are the same as that of source files or input files.
+**Implicit Rules : **  
+There are implicit rules that can help users simplify their makefiles. The simplest implicit rule is shown at the line 9. This can be used when the names of output files(not including extension names) are the same as that of source files or input files. For other implicit rules, please refer to **GNU make Manual**.
 
 **$@** and **$<**:  
 These two symbols represent the name of output file (i.e. the target name) and the first dependency (in this case, the source file) respectively.
@@ -193,9 +187,9 @@ Symbol "-" means ignoring error messages and continuing the subsequent commands.
 	20
 	21 #=============================End of File==============================
 ```
-Variables (or Macro):
+**Variables (or Macro) : **
 
-* Use "**=**" to assign the values to variables and ${} or $() to get the values of variables. ***Important***: *the value of a variable depends on the final assignment, not the location of the variable.* For example, in the following codes, the **y** will be *xyz*, rather than *foo*. :
+* Use "**=**" to assign values to variables and ${} or $() to get the values of variables. ***Important***: *the value of a variable depends on the final assignment in **makefile**, not the location of the variable.* For example, in the following codes, the **y** will be *xyz*, rather than *foo*. :
 
 ```
 	x = foo
@@ -205,7 +199,7 @@ Variables (or Macro):
  
 * There are also other symbols for assigning values. The most often seen symbols are **+=**, **?=**, and **:=**. 
 	1. **:=**: Using this symbol to assign values, the values of the variable will depend on the location.
-	1. **?=**: If the variable is undefined, than this assigns values to it. Otherwise keep the old value.
+	1. **?=**: If the variable is undefined, than this assigns values to it. Otherwise the **make** keep the old value.
 	3. **+=**: add a new value to the original values. For example: `a = ff`, then after `a += gg`, **a** will become *ff gg*. 
 * The values of a variable can be change when we run `$ make` command. For example: `$ make BIN='exHAHAHA'`. The **BIN** during this execution will be **exHAHAHA** instead of **ex3**.
 * The **make** can also get the environmental variables of current operating system, such as ${PATH} etc.
@@ -260,14 +254,14 @@ Variables (or Macro):
 	46 #=============================End of File==============================
 ```
 
-**Shell Script in the make:**  
+**Shell Scripts in the *make*:**  
 
 * When the ***make*** executes the shell commands, it starts **a new shell** for **each line**. Therefore, some commands have to be written in the same line and be connected by the symbol "**;**". For example, the **if ... ; then ...; fi** commands. They can not be executed separately in different shell.
 * If a shell returns any error to the ***make*** in the end of execution, the ***make*** will stop the execution. So some commands **can not** run in the same shell using "**;**". For example, if directory **ABC** doesn't exist, running `cd ./ABC/ ; echo ${PATH}`, the **make** will still execute `echo ${PATH}`, though it may got an error message `cd: ./ABC: No such file or directory`. To avoid this problem, we can use "**&&**" rather than "**;**".
 
-**GNE make Functions:**
+**GNE *make* Functions:**
 
-There are some built-in function in GNU make. The `$(foreach i, ${OBJ}, ${OPATH}/${i})` in the line 35 and 37 is an example. **foreach** is the function. It is something like **for-loop** in python. **i** is the variable, and **${OBJ} is the list. **${OPATH}/${i}** is the command it has to execute during each loop. If we translate `$(foreach i, ${OBJ}, ${OPATH}/${i})` into python, it will look like:
+There are some built-in functions in GNU make. The `$(foreach i, ${OBJ}, ${OPATH}/${i})` in the line 35 and 37 is an example. **foreach** is a function. It is something like **for-loop** in python. **i** is the variable, and **${OBJ} is the list. **${OPATH}/${i}** is the command it has to execute during each loop. If we translate `$(foreach i, ${OBJ}, ${OPATH}/${i})` into python, it will look like:
 
 ```python
 	OBJ =  ['PrintHello.o', 'main.o']
@@ -280,12 +274,12 @@ There are some built-in function in GNU make. The `$(foreach i, ${OBJ}, ${OPATH}
 	i = ''
 	foreach(i, OBJ, OPATH + '/')
 ```
-For more functions, please refer to the Manual of the GNU make. Wihtout the help of the GNU make functions, we can still use the ***make***. So it is not necessary to understand all of or most of them if we are not going to develop a big software.
+For more functions, please refer to the **GNU make Manual**. Wihtout the help of the GNU make functions, we can still utilize the ***make*** to do many things.
 
-**Variables Defined in a Target:**  
-In the line 19, 20, 24 and 25, we define several local variables. This variable only exist in this target. So if we want other targets use them, we have to hind some way to pass them. There are many approaches, one of them is to pass them by `$ make <target> [var1 = '...' var2 = '...']`.
+**Local Variables Defined in a Target:**  
+In the line 19, 20, 24 and 25, we define several local variables. These variables only exist in their targets. So if we need other targets to use them, we have to figure out some ways to pass them. There are many approaches, one of them is to pass them by `$ make <target> [var1 = '...' var2 = '...']`.
 
 -------------------------------
-## Reference
-[1] Stallman, M., McGrath, R., & Smith, P. D. (1991). gnu Make. Free Software Foundation, Boston.
+## Reference  
+[1] Stallman, M., McGrath, R., & Smith, P. D. (1991). gnu Make. Free Software Foundation, Boston.  
 [2] http://prateekvjoshi.com/2014/02/01/cmake-vs-make/
