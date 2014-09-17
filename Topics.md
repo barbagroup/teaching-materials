@@ -1,26 +1,26 @@
 Numerical Methods
 -----------------
-* Iterative Solvers
+* [ ] Iterative Solvers
  * Gauss-Jacobi/Gauss-Seidel/SOR
  * Conjugate Gradient
  * GMRES
-* Preconditioners
+* [ ] Preconditioners
  * Diagonal
  * Incomplete LU 
  * Incomplete Cholesky
-* Runge-Kutta method
-* Multigrid methods
-* Boundary Element Method
-* Essentially non-oscillatory schemes
-* Spectral methods
+* [ ] Runge-Kutta method
+* [ ] Multigrid methods
+* [ ] Boundary Element Method
+* [ ] Essentially non-oscillatory schemes
+* [ ] Spectral methods
  * Fourier
  * Chebyshev 
-* Finite element method
+* [ ] Finite element method
  * Continous Galerkin
  * Discontinous Galerkin
  * Spectral element
-* Radial Basis Functions
-* Fast multipole method
+* [ ] Radial Basis Functions
+* [ ] Fast multipole method
 
 
 
@@ -30,32 +30,32 @@ Programming
 * [x] git
 * [x] iPython Notebook
 * [ ] gdb
-* valgrind
-* High performance computing
+* [ ] valgrind
+* [ ] High performance computing
  * Single-core optimisation
  * SSE
  * OpenMP
  * MPI
-* GPU Computing
+* [ ] GPU Computing
  * CUDA
  * OpenCL
-* Colonial One
+* [ ] Colonial One
  * Slurm
  * Tmux
-* C++
+* [ ] C++
   * Standard template library
   * C++11 (and 14?)
-* Julia
-* Travis CI
-* makefile
+* [ ] Julia
+* [ ] Travis CI
+* [x] makefile
 
 Linux sysadmin stuff
 --------------------
-* rsync
-* ssh
-* sudo
-* building from source
-* bash
+* [ ] rsync
+* [ ] ssh
+* [ ] sudo
+* [ ] building from source
+* [x] bash
     * piping | > <
     * grep
     * PATH
@@ -65,30 +65,30 @@ Linux sysadmin stuff
 
 Computer Science
 ----------------
-* Floating-point arithmetic
+* [ ] Floating-point arithmetic
  * Floating-point representation
  * Machine precision
-* Algorithms & Data Structures
+* [ ] Algorithms & Data Structures
  * Search
  * Sort
  * Balanced binary tree
-* Computational geometry
+* [ ] Computational geometry
  * Intersections
  * Areas and volumes
  * Quadtrees/Octrees
-* Fast Fourier Transform
-* Parallel algorithms
+* [ ] Fast Fourier Transform
+* [ ] Parallel algorithms
 
 General Topics
 --------------
-* Validation and verification
+* [ ] Validation and verification
   * Calculating order of convergence
-* Academic writing
+* [ ] Academic writing
 
 Computational Fluid Dynamics
 ----------------------------
-* Turbulence models
+* [ ] Turbulence models
   * Smagorinsky
   * Dynamic subgrid-scale model
-* Boundary conditions
-* Q-criterion
+* [ ] Boundary conditions
+* [ ] Q-criterion
