@@ -28,7 +28,7 @@ Numerical Methods
 
 Programming
 -----------
-* git
+* [x] git
 * valgrind
 * High performance computing
  * Single-core optimisation
