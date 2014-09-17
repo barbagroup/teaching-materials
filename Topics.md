@@ -22,11 +22,13 @@ Numerical Methods
 * Radial Basis Functions
 * Fast multipole method
 
+
+- [x] iPython Notebook
+- [ ] gdb
+
 Programming
 -----------
 * git
-[x] iPython Notebook
-[ ] gdb
 * valgrind
 * High performance computing
  * Single-core optimisation
