@@ -25,8 +25,8 @@ Numerical Methods
 Programming
 -----------
 * git
-* iPython Notebook
-* gdb
+[x] iPython Notebook
+[ ] gdb
 * valgrind
 * High performance computing
  * Single-core optimisation
