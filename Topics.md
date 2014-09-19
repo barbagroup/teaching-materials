@@ -48,6 +48,7 @@ Programming
 * [ ] Julia
 * [ ] Travis CI
 * [x] makefile
+* [ ] Profiling tools
 
 Linux sysadmin stuff
 --------------------
