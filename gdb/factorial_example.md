@@ -1,3 +1,5 @@
+#Factorial example
+
 The file `factorial.cpp` is the source of a code that computes the factorial of an integer. Compile and run:
 
 ```
