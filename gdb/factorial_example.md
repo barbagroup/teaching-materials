@@ -76,7 +76,7 @@ factorial (N=4) at factorial.cpp:7
 ```
 If we would have done this stepping down with `next`, GDB would have executed `factorial` without going actually into the function.
 
-We might be a bit lost where we are in the code, so we can ask for a `list` of lineas around the one about to be executed
+We might be a bit lost and want to know where we are in the code. We can ask for a `list` of lines around the one about to be executed
 
 ```
 (gdb) l
@@ -93,6 +93,7 @@ We might be a bit lost where we are in the code, so we can ask for a `list` of l
 and to know how we got to this point, we can run a `backtrace`
 
 ```
+(gdb) bt
 #0  factorial (N=4) at factorial.cpp:7
 #1  0x00000000004008f5 in main () at factorial.cpp:24
 ```
@@ -124,7 +125,7 @@ $4 = 4
 7	    for (int i=1; i<=N; i++)
 ```
 
-Let's step down the code to make sure the `for` loop is being executed (no need to press `s` the four times!)
+Let's step down the code to make sure the `for` loop is being executed (no need to press `s` the every time!)
 
 ```
 (gdb) s
@@ -234,7 +235,7 @@ Watchpoint 4 deleted because the program has left the block in
 which its expression is valid.
 ```
 
-Loop is running correctly! The problem is `fact` that is coming into the loop with the wrong value. If we look at the declaration of `fact`, we see
+Loop is running correctly! The problem is that `fact` is coming into the loop with the wrong value. If we look at the declaration of `fact`, we see
 
 ```C
      int fact;
