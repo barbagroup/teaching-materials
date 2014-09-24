@@ -25,7 +25,7 @@ GDB is the GNU debugger, that allows you to see what is going on inside the prog
 * `list` (`l`): show code around current line.
 * `backtrace` (`bt`): function calls that led to the current state.
 
-###Read/write
+####Read/write
 * `print` (`p`): read and write on variable.
 * `info locals`: read all local variables.
 
