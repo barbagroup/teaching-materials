@@ -1,6 +1,8 @@
 #Introduction to GDB
 
-##What is GDB? Why do we need it?
+##What is GDB? 
+
+GDB is the GNU debugger, that allows you to see what is going on inside the program as it executes.
 
 ##Getting started
 * Compile with `-g` flag.
