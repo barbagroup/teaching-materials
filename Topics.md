@@ -29,7 +29,7 @@ Programming
 -----------
 * [x] git
 * [x] iPython Notebook
-* [ ] gdb
+* [x] gdb
 * [ ] valgrind
 * [ ] High performance computing
  * Single-core optimisation
