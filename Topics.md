@@ -8,10 +8,13 @@ Numerical Methods
  * Diagonal
  * Incomplete LU 
  * Incomplete Cholesky
-* [ ] Runge-Kutta method
+* [ ] Runge-Kutta methods
 * [ ] Multigrid methods
+ * Geometric multigrid
+ * Algebraic multigrid
+  * Classical
+  * Smoothed aggregation
 * [ ] Boundary Element Method
-* [ ] Essentially non-oscillatory schemes
 * [ ] Spectral methods
  * Fourier
  * Chebyshev 
@@ -21,9 +24,7 @@ Numerical Methods
  * Spectral element
 * [ ] Radial Basis Functions
 * [ ] Fast multipole method
-
-
-
+* [ ] Essentially non-oscillatory schemes
 
 Programming
 -----------
@@ -39,6 +40,7 @@ Programming
 * [ ] GPU Computing
  * CUDA
  * OpenCL
+ * Multi-GPU
 * [ ] Colonial One
  * Slurm
  * Tmux
@@ -69,6 +71,12 @@ Computer Science
 * [ ] Floating-point arithmetic
  * Floating-point representation
  * Machine precision
+* [ ] Parallel algorithms
+ * Dense matrix-matrix multiplication
+ * N-body computation
+ * Reduction
+ * Finite-difference unsteady heat diffusion
+* [ ] Fast Fourier Transform
 * [ ] Algorithms & Data Structures
  * Search
  * Sort
@@ -77,8 +85,6 @@ Computer Science
  * Intersections
  * Areas and volumes
  * Quadtrees/Octrees
-* [ ] Fast Fourier Transform
-* [ ] Parallel algorithms
 
 General Topics
 --------------
@@ -88,8 +94,8 @@ General Topics
 
 Computational Fluid Dynamics
 ----------------------------
+* [ ] Boundary conditions
+* [ ] Q-criterion
 * [ ] Turbulence models
   * Smagorinsky
   * Dynamic subgrid-scale model
-* [ ] Boundary conditions
-* [ ] Q-criterion
