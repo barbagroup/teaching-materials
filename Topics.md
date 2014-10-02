@@ -8,12 +8,15 @@ Numerical Methods
  * Diagonal
  * Incomplete LU 
  * Incomplete Cholesky
+ * Block preconditioners
+* [ ] Schur complement
 * [ ] Runge-Kutta methods
 * [ ] Multigrid methods
  * Geometric multigrid
  * Algebraic multigrid
   * Classical
   * Smoothed aggregation
+ * Chebyshev smoothers
 * [ ] Boundary Element Method
 * [ ] Spectral methods
  * Fourier
@@ -40,6 +43,7 @@ Programming
 * [ ] GPU Computing
  * CUDA
  * OpenCL
+ * pyCUDA, pyOpenCL
  * Multi-GPU
 * [ ] Colonial One
  * Slurm
