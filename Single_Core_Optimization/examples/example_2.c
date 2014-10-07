@@ -1,7 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include <omp.h>
-
+#include <sys/time.h>
 
 void compute1(float a[], unsigned int N) {
 	for (unsigned int i=0; i<N; ++i) {
@@ -27,29 +26,28 @@ void compute2(float a[], unsigned int N) {
 
 int main(){
 
-	float a[10000]; /* a is an array of 100 floats */
+	float a[10000]; /* a is an array of 10000 floats */
+	float b[10000]; /* b is an array of 10000 floats */
 
 	/* initialize elements of array n to 0 */
-	for (int i = 0; i < 1000; i++) {
+	for (int i = 0; i < 10000; i++) {
 		a[i] = i + 1; /* set element at location i to i + 1 */
-		}
+		b[i] = i + 1; /* set element at location i to i + 1 */
+	}
 
-	double start1 = omp_get_wtime();
+	struct timeval start, end;
+	double elapsedTime;
+	gettimeofday(&start, NULL);
 	compute1(a, 10000);
-	double dif1 = 1.0e6 *(omp_get_wtime() - start1);
-	printf("In compute1 work took %f micro-sec\n", dif1);
+	gettimeofday(&end, NULL);
+	elapsedTime = (end.tv_sec - start.tv_sec) * 1000.0;      // sec to ms
+    elapsedTime += (end.tv_usec - start.tv_usec) / 1000.0;   // us to ms
+	printf("In compute1 work took %f ms\n", elapsedTime);
 
-	double start2 = omp_get_wtime();
-	compute1(a, 10000);
-	double dif2 = 1.0e6 *(omp_get_wtime() - start2);
-	printf("In compute2 work took %f micro-sec\n", dif2);
-
+	gettimeofday(&start, NULL);
+	compute2(b, 10000);
+	gettimeofday(&end, NULL);
+	elapsedTime = (end.tv_sec - start.tv_sec) * 1000.0;      // sec to ms
+    elapsedTime += (end.tv_usec - start.tv_usec) / 1000.0;   // us to ms
+	printf("In compute2 work took %f ms\n", elapsedTime);
 }
-
-
-/*how to compile
-(X=0,1,2,3)
-gcc -OX -std=c99 -o test1.e test1.c -fopenmp -lgomp 
-gcc -Ofast -std=c99 -o test1.e test1.c -fopenmp -lgomp
-adding -S we generate the assembly and see what happend
-*/

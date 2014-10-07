@@ -1,8 +1,10 @@
 #include <stdio.h>
-#include <omp.h>
+#include <sys/time.h>
 
 int main(){
-	double start = omp_get_wtime();
+	struct timeval start, end;
+	double elapsedTime;
+	gettimeofday(&start, NULL);
 	float a[100] = {0.};
 	float g[100] = {0.};
 	float c=2, d=3, e;
@@ -13,18 +15,12 @@ int main(){
 	float ans[100] = {0.};
 	for (int i=0;i<100;++i) {
 		ans[i] =  a[i]*c + g[i]*d;
-//		printf("%f ", ans[i]);
 		e = g[i];
 	}
-	double dif = 1.0e6 *(omp_get_wtime() - start);
-	printf("Work took %f micro-sec\n", dif);
+	gettimeofday(&end, NULL);
+	elapsedTime = (end.tv_sec - start.tv_sec) * 1000.0;      // sec to ms
+    elapsedTime += (end.tv_usec - start.tv_usec) / 1000.0;   // us to ms
+	printf("Work took %f ms\n", elapsedTime);
 return 0;
 }
-
-/*
-To compile:
-	gcc -std=c99 -O3 -o example_2 example_2.c -fopenmp -lgomp
-If you want to generate the assembly code:
-	gcc -std=c99 -O3 -S  example_2.c -fopenmp -lgomp
-*/
 

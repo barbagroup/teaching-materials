@@ -1,7 +1,6 @@
-#Single Core Optimization
---------------------------
+# Single Core Optimization
 
-##Introduction: *Performance of Computing Platforms.*
+## Introduction: *Performance of Computing Platforms.*
 
 In the last few years the exponential increase in CPU frequency results in a "free" speedup for numerical software. In other words, legacy codes written for a predecessor will run faster without any extra effort. However, the performance of computers has evolved due to increases in the processors' parallelism (vector processing, multi-threading, SIMD, multicore, etc). 
 
@@ -26,11 +25,38 @@ Before start with some examples we are going to introduce some helpful tools whi
 * To know where is the bottleneck in our code (target to optimize)
 * To know information about cache-references, cache-misses, time, etc.
 
+## Functions to measure elapsed time
+
+### gettimeofday
+
+This function can be used to measure wall-clock time on Unix-based operating 
+systems. It requires the header file `sys/time.h`. The following is an example 
+of its usage:
+
+```
+#include<stdio.h>
+#include<sys/time.h>
+int main()
+{
+    struct timeval start, end;
+    double timeTaken;
+
+    gettimeofday(&start, NULL);
+    do_something();
+    gettimeofday(&end, NULL);
+
+    timeTaken  = (end.tv_sec - start.tv_sec);         // seconds elapsed
+    timeTaken += (end.tv_usec - start.tv_usec)/1e6;   // additional microseconds elapsed
+    
+    printf("Time taken: %f seconds", &timeTaken);
+}
+```
+
 ### omp_get_wtime
 
 (Need to install libgomp1, the GCC OpenMP (GOMP) support library)
 
-Elapsed wall clock time in seconds. The time is measured per thread, no guarantee can be made that two distinct threads measure the same time. Time is measured from some "time in the past", which is an arbitrary time guaranteed not to change during the execution of the program.
+Performs the same function as the previous command: gives the elapsed wall clock time in seconds. The time is measured per thread, no guarantee can be made that two distinct threads measure the same time. Time is measured from some "time in the past", which is an arbitrary time guaranteed not to change during the execution of the program.
 
 C/C++:
     Prototype:     double omp_get_wtime(void); 
@@ -49,11 +75,44 @@ When we compile:
 
 In the examples you can see how we use this tool to meassure time. However, [here](http://msdn.microsoft.com/en-us/library/x721b5yk.aspx) is a general example of how to use this function.
 
-### lscpu and cat /proc/cpuinfo
+## CPU Information
 
-If you type these two commands in your terminal you can obtain useful information about your cpu resources that would be useful.
+### Linux
 
-Try it and experiment by yourself!!!
+`lscpu` and `cat /proc/cpuinfo`: If you type these two commands in your terminal in Linux, you can obtain useful information about your CPU resources. Try it and experiment by yourself!!!
+
+Example:
+
+```
+> lscpu
+Architecture:          x86_64
+CPU op-mode(s):        32-bit, 64-bit
+Byte Order:            Little Endian
+CPU(s):                8
+On-line CPU(s) list:   0-7
+Thread(s) per core:    2
+Core(s) per socket:    4
+Socket(s):             1
+NUMA node(s):          1
+Vendor ID:             GenuineIntel
+CPU family:            6
+Model:                 45
+Stepping:              7
+CPU MHz:               3599.827
+BogoMIPS:              7200.05
+Virtualization:        VT-x
+L1d cache:             32K
+L1i cache:             32K
+L2 cache:              256K
+L3 cache:              10240K
+NUMA node0 CPU(s):     0-7
+```
+
+### Mac OS X
+
+The command `sysctl hw` displays information about the CPU on Mac computers.
+
+## Profiling code
 
 ### gprof (GNU profiler)
 
@@ -132,31 +191,31 @@ If we want to measure more than one event, simply provide a comma separated list
 To learn more about perf, click [here](https://perf.wiki.kernel.org/index.php/Tutorial)
 
 
-#Let's start with optimizations
+## Let's start with optimizations
 
 1. Without modifying code - using compiler flags
 
-    Try what happend if you use -O0, -O1, -O2, -O3, -Ofast .
-    To see which flags are enable and disable with these flags write in
-    the command line:
+    See what happens when you use `-O0`, `-O1`, `-O2`, `-O3`, `-Ofast`.
+    To see which flags are enabled and disabled with these optimization levels, 
+    run the following in the command line:
     
-```
+    ```
     gcc -c -Q -O3 --help=optimizers
-```
+    ```
     
-    If you want to add a flag that is not include in the -OX you choose
-    you can add it directly as a flag when you compile.
+    If you want to add a flag that is not included in `-O<number>`, you can 
+    choose to add it directly as a flag when you compile.
     
-    In folder examples, you can find the code (example_1.c) try to run it
+    In the folder `examples`, you can find the code `example_1.c`. Try to run it
     and see what happens using different flags.
-    There are also available the assembly codes so you can see the magic 
+    Also available are the assembly codes. So you can see the magic 
     of the compiler.
 
-2. If you can, avoid unnecessary if statements.
+2. If you can, avoid unnecessary `if` statements.
 
-For example: non-periodic boundary conditions
+    For example: non-periodic boundary conditions
     
-```C
+    ```C
         1 void compute1(float a[], const unsigned int N) {
         2     for (unsigned int i=0; i<N; ++i) {
         3         if (i==0) {
@@ -169,12 +228,12 @@ For example: non-periodic boundary conditions
         10     }
         11 }
     
-``` 
+    ``` 
     
-Is better if we write it like this:
+    Is better if we write it like this:
     
 
-```C
+    ```C
     1 void compute2(float a[], const unsigned int N) {
     2     a[0]=a[1]/2;
     3     for (unsigned int i=1; i<N-1; ++i) {
@@ -182,16 +241,21 @@ Is better if we write it like this:
     5     }
     6     a[N-1]=a[N-2]/2;
     7 }
-``` 
+    ``` 
 
-In folder examples, you can find the code (example_2.c) which justify this. Besides, you can try it with different flags of compilation and see what happend.
+    In folder `examples`, you can find the code `example_2.c` which justifies this. 
+    Besides, you can try it with different flags of compilation and see what happens.
 
-###Note:
+    > **Note:**
+    >
+    > You will see a difference in the run-time when you use the `-O0` flag. But the 
+    > difference between the functions `compute1` and `compute2` is negligible when 
+    > using the `-O3` flag. This is because the compiler optimizes branch prediction.
 
 These codes are easy codes for the compiler, most times happens that the compiler does not optimize automatically so you need to work in the code. 
     
 --------------------------------------------------------------------------
-What makes sense to do?
+### What makes sense to do?
 
 * A little of loop unrolling: 
         Disassemble dependencies using records to achieve more Instruction 
@@ -201,16 +265,16 @@ What makes sense to do?
 * Expose paralellism, when is possible, so the compiler can vectorize 
 automatically.
 
-* Cache Optimizations.
-    -Rearranging loops..
-    -Cache blocking.
-    -Memory alignment.
+* Cache Optimizations:
+ - Rearranging loops. 
+ - Cache blocking.
+ - Memory alignment.
 
 * Indicate there is no aliasing.
 
 --------------------------------------------------------------------------
 
-###Interesting examples:
+### Interesting examples:
 
 #### B = A^t (transposed)
 
@@ -222,7 +286,7 @@ The matrix in the memory looks like:
 
 <center>![image](./images/mat_in_mem.jpg)</center>
 
-###Naïve code:
+### Naïve code:
 
 ```C 
     1 #define L (1<<11)
@@ -259,9 +323,19 @@ Performance counter stats for './mtxtransp1' (4 runs):
 
 ```
 
-###Doing cache blocking:
+### Doing cache blocking:
 
-Code `mtxtransp2.c` in folder examples, we obtain:
+Modify the portion that performs the transpose in code `mtxtransp2.c` in the
+folder `examples`:
+```C
+for (i=0; i<L; i+=BY)
+        for (j=0; j<L; j+=BX)
+            for (ii=i; ii<i+BY; ++ii)
+                for (jj=j; jj<j+BX; ++jj)
+                    b[jj][ii] = a[ii][jj];
+```
+
+Run `perf` as before:
 
 ```
 Performance counter stats for './mtxtransp2' (4 runs):
@@ -276,29 +350,29 @@ Performance counter stats for './mtxtransp2' (4 runs):
 
 *Speedup*: 0.233/0.067 = 3.5x :D
 
-If now we run both codes with -O3 we obtain: 
+If now we run both codes with `-O3` we obtain: 
 
 *Speedup*: 0.19/0.046 = 4.1x :D :D
 
-You can try different values of Bx and By and see how the performance is modified; but we are lucky because someone run different possible combinations and found the best blocking for this problem is Bx= 2^1 and By=2^8.
+You can try different values of `BX` and `BY` and see how the performance varies. But we are lucky because someone ran different possible combinations and found the best blocking for this problem is `BX=2^1` and `BY=2^8`.
 
 <center>![image](./images/best_blocking.png)</center>
 
 *Speedup*: 0.19/0.035 = 5.4x :D :D :D
 
-#### C = AxB (matrix-matrix)
+> **Note:**
+>
+> The above optimal values of `BX` and `BY` are specific to the hardware. 
+> The values will depend on the processor on which the code is run (specifically, the properties of the cache.)
 
-(show slids and translate)
+## Limits and Problems:
 
-##Limits and Problems:
-
-*[Roof line model](http://www.eecs.berkeley.edu/Pubs/TechRpts/2008/EECS-2008-134.pdf)
-
+* [Roof line model](http://www.eecs.berkeley.edu/Pubs/TechRpts/2008/EECS-2008-134.pdf)
 
 ## References
-[1](http://www.agner.org/optimize/optimizing_cpp.pdf) Optimizing software in C++. Agner Fog. Technical University of Denmark.
+[1] [Optimizing software in C++](http://www.agner.org/optimize/optimizing_cpp.pdf). Agner Fog. Technical University of Denmark.
 
-[2](http://users.ece.cmu.edu/~franzf/papers/gttse07.pdf) How To Write Fast Numerical Code: A Small Introduction. Srinivas Chellappa, Franz Franchetti, and Markus Puschel
+[2] [How To Write Fast Numerical Code: A Small Introduction](http://users.ece.cmu.edu/~franzf/papers/gttse07.pdf). Srinivas Chellappa, Franz Franchetti, and Markus Puschel
 
 [3] Classes notes from "Computación paralela - 2014 FaMAF-UNC". Nicolás Wolowick
 
