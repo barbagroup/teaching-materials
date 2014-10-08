@@ -9,7 +9,7 @@ the one that would be used in the corresponding sequential code.
 
 Similar problems are caused by the computer's memory hierarchy (see Fig 1.), independently of the available parallelism. Moving data from and to memory has become the bottleneck. The memory hierarchy, aims to address this problem, but can only work if data is accessed in a suitable order. Compilers are inherently limited in optimizing for the memory hirarchy since this optimizations may require algorithm restructuring. 
 
-<center>![image](./images/mem_hier.png)</center>
+<center>![image](./images/memory-hierarchy.png)</center>
 
 Adding to these problems is the fact that CPU frequency scaling is approaching its en due to limits to the chip's possible power density (see Fig 2.). This implies the end of "automatic speedup"; then, in order to obtain performance gains, we need to parallelize. 
 
