@@ -63,7 +63,7 @@ int main()
 	double runTime = time_MMMNaive(C, A, B, N);
 	std::cout << "Size of each input matrix: " << N*4.0*N/(1024.0*1024.0) << " MB" << std::endl;
 	std::cout << "MMMNaive run time: " << runTime << " seconds" << std::endl;
-	std::cout << "FLOPS: " << 2*N*N*N/runTime/1e9 << " GFLOP/s" << std::endl;
+	std::cout << "FLOPS: " << 2.0*N*N*(N/runTime)/1e9 << " GFLOP/s" << std::endl;
 
 	return 0;
 }
