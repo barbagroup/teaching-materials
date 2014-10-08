@@ -169,7 +169,8 @@ Associativity is a trade-off. If there are *k* possible locations in the cache
 that correspond to the main memory location, then the CPU will have to go 
 through them in a prescribed manner to detect a hit. This slows down the time 
 for a hit. But at the same time, increasing the associativity may decrease the 
-probability of a cache miss by reducing the number of conflicts in the cache.
+probability of a (slow) cache miss by reducing the number of conflicts in the 
+cache.
 
 ## Optimize: Accessing an array
 
@@ -228,7 +229,7 @@ for(int i=0; i<8; i+=4)
 			read(a[ii])
 ```
 
-We have cold misses when a[0] and a[2] are accessed, but elements 0-3 are 
+We have misses when a[0] and a[2] are accessed, but elements 0-3 are 
 accessed again. During the second time, all four elements are present in the 
 cache, and all access will result in hits. The same happens during the next 
 eight accesses on the second half of the array. Our hit and miss sequence will 
@@ -250,6 +251,58 @@ the number of cache misses when running the code.
 * **Fig 6:** An illustration of the above exercise (from *How to write fast 
   numerical code*)
 
+## Optimize: Double-dimensional array access
+
+This is a simple example which demonstrates how the order of loops in a nested 
+loop can affect the performance of a code.
+
+Consider *8 x 8* double-dimensional data with rows stored in contiguous memory 
+locations. **The numbers are stored in a single-dimensional array, and 
+the element a[j][i] is accessed as a[j*N+i].** The cache is direct-mapped, can 
+hold 16 floats, and the size of each cache line is 4 floats. Consider the 
+following orderings of loops (the access patterns are illustrated in the 
+figures that follow the code snippets):
+
+#### Case 1
+
+```C
+for(j=0; j<8; j++)
+	for(i=0; i<8; i++)
+		read(a[j*N+i])
+```
+
+<center>![image](./images/dd-array-1.png)</center>
+
+* **Fig 7:** Row-wise access of a double-dimensional array
+
+In this access pattern, we can see that we will incur a cache miss every four 
+elements, but the remaining elements from each cache line will be hits. The 
+pattern obtained is MHHHMHHHMHHH..., with 75% of the data reads as hits.
+
+#### Case 2
+
+```C
+for(i=0; i<8; i++)
+	for(j=0; j<8; j++)
+		read(a[j*N+i])
+```
+
+<center>![image](./images/dd-array-2.png)</center>
+
+* **Fig 8:** Column-wise access of a double-dimensional array
+
+This corresponds to column-wise traversal of the double-dimensional array. 
+The first element is read, registers a miss, and its cache line is copied into 
+the cache. The next element which is read is along the column, and not a part 
+of the data that has been copied into the cache. Hence, it will also register a 
+miss. And so on. After four elements along the column have been read, the cache 
+is full, and any other cache lines that are copied into the cache will start 
+replacing the older ones. By the time the 8th element is reached, none of the 
+cache lines from the first four rows are present in the cache. Next, the second 
+element from each row is accessed, and the same issues are faced. Hence, the 
+access pattern for this ordering of the loops is MMMMMMMM..., and 0% of the 
+reads are hits.
+
 ## Optimize: Dense Matrix-Matrix Multiplication (MMM)
 
 Read Section 4.2 of *How to write fast numerical code* for general tips on 
@@ -268,12 +321,12 @@ for(i=0; i<N; i++)
 
 <center>![image](./images/mmm-naive.png)</center>
 
-* **Fig 7:** An illustration of the naive MMM algorithm (from *How to write fast 
+* **Fig 9:** An illustration of the naive MMM algorithm (from *How to write fast 
   numerical code*)
 
 <center>![image](./images/mmm-naive-cache.png)</center>
 
-* **Fig 8:** An illustration of the cache state at the end of calculated the 
+* **Fig 10:** An illustration of the cache state at the end of calculated the 
 first element of the product matrix (from *How to write fast numerical code*)
 
 Section 5.1 discusses strategies to optimize cache usage in MMM, the most 
@@ -290,7 +343,7 @@ for(i=0; i<N; i+=BS)
 ```
 <center>![image](./images/mmm-blocked.png)</center>
 
-* **Fig 9:** An illustration of the mini MMMs that come about from blocking the 
+* **Fig 11:** An illustration of the mini MMMs that come about from blocking the 
 MMM code (from *How to write fast numerical code*)
 
 ## References
