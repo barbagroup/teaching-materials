@@ -3,8 +3,8 @@
 ## 2014
 | Date | Presenter | Topic |
 |:----:|:---------:|:------|
-| 22 Oct | Gil     | Julia |
-| 15 Oct | Olivier | TBD |
+| 05 Nov | Gil     | Julia |
+| 22 Oct | Olivier | Single core optimization (FFT application) |
 | 08 Oct | Anush   | Single core optimization (continued) |
 | 01 Oct | Naty    | Single core optimization |
 | 24 Sep | Chris   | **gdb**: Debugging C/C++ codes |
