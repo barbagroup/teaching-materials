@@ -4,7 +4,7 @@
 It is an abstract view of data and execution.
 * Message Passing
 
-![image](./images/MP.png)
+![image](./image/MP.png)
 
 * Shared Memory
 * Distributed Shared Memory
