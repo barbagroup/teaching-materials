@@ -33,11 +33,19 @@ It is an abstract view of data and execution.
 * MPI_Recv      :		 Receive a message.
 
 ```
-#include<mpi.h>
+#include <stdio.h>
+#include <mpi.h>
 void main(int argc, char *argv[]) {
+
 int rank, size;
-MPI_Init(&argc, &argv); MPI_Comm_rank(MPI_COMM_WORLD, &rank); MPI_Comm_size(MPI_COMM_WORLD, &size); /* ... your code here ... */
-printf(“Hello from node %d of %d\n”, rank,size) MPI_Finalize ();
+MPI_Init(&argc, &argv); 
+MPI_Comm_rank(MPI_COMM_WORLD, &rank); 
+MPI_Comm_size(MPI_COMM_WORLD, &size); 
+
+/* ... your code here ... */
+
+printf(“Hello from node %d of %d\n”, rank,size) 
+MPI_Finalize ();
 }
 ```
 ￼￼
