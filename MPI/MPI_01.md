@@ -52,4 +52,9 @@ return 0;
 }
 ```
 
-* **MPI_Send**(&buff, int count, MPI_Datatype, int dest, int tag, MPI_status *status)
+* **MPI_Send**(buf, count, datatype, source, tag, comm)
+
+specifies that a message containing count elements of the specified datatype starting at address `buf` is to be sent to the process with identifier `dest`. As will be explained in greater detail subsequently, this message is associated with an envelope comprising the specified tag, the source process's identifier, and the specified communicator ( comm).
+
+* **MPI_Recv**(buf, count, datatype, source, tag, comm, status)
+ * buf:  
