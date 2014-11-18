@@ -2,16 +2,16 @@
 
 ### Parallel Programming Model
 It is an abstract view of data and execution.
-* Message Passing
+* **Message Passing** : MPI
 
 ![image](./image/MP.png)
 
-* Shared Memory
+* **Shared Memory** : OpenMP
 
 ![image](./image/SM.png)
 
-* Distributed Shared Memory
+* **Distributed Shared Memory**
 
 ![image](./image/DSM.png)
 
-* Data Parallel
+* **Data Parallel**
