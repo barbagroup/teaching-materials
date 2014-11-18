@@ -32,7 +32,7 @@ It is an abstract view of data and execution.
 * **MPI_Comm_rank** :		 Determine my process identifier.
 * **MPI_Send**      :		 Send a message.
 * **MPI_Recv**      :		 Receive a message.
-
+MPI Hello World
 ```
 #include <stdio.h>
 #include <mpi.h>
@@ -45,7 +45,7 @@ MPI_Comm_size(MPI_COMM_WORLD, &size);
 
 /* ... your code here ... */
 
-printf(“Hello from node %d of %d\n”, rank,size) 
+printf(“Hello from node %d of %d\n”, rank, size) 
 MPI_Finalize();
 return 0;
 }
