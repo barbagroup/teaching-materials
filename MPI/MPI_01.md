@@ -3,7 +3,6 @@
 ### Parallel Programming Model
 It is an abstract view of data and execution.
 * **Message Passing** : MPI
-
   * Two-sided communication (significant communication overhead for small transactions)
   * Single Program Multiple Data
   * With locality awareness
@@ -18,8 +17,9 @@ It is an abstract view of data and execution.
 
 ![image](./image/SM.png)
 
-* **Distributed Shared Memory** : 
+* **Distributed Shared Memory** : UPC, Titanium, X10 (not widely used)
 
 ![image](./image/DSM.png)
 
-* **Data Parallel** : High Performance Fortran
+### Six Basics to Start with MPI
+
