@@ -30,8 +30,6 @@ It is an abstract view of data and execution.
 * **MPI_Finalize**  :		 Terminate a computation.
 * **MPI_Comm_size** :   Determine number of processes.
 * **MPI_Comm_rank** :		 Determine my process identifier.
-* **MPI_Send**      :		 Send a message.
-* **MPI_Recv**      :		 Receive a message.
 
 MPI Hello World
 ```
@@ -52,9 +50,7 @@ return 0;
 }
 ```
 
-* **MPI_Send**(buf, count, datatype, source, tag, comm)
+* **MPI_Send**(void *buf, int count, MPI_Datatype datatype, int source, int tag, MPI_Comm comm)
+* **MPI_Recv**(void *buf, int count, MPI_Datatype datatype, int source, int tag, MPI_Comm comm, MPI_Status *status)
 
-specifies that a message containing count elements of the specified datatype starting at address `buf` is to be sent to the process with identifier `dest`. As will be explained in greater detail subsequently, this message is associated with an envelope comprising the specified tag, the source process's identifier, and the specified communicator ( comm).
-
-* **MPI_Recv**(buf, count, datatype, source, tag, comm, status)
- * buf:  
+**MPI_Send** sends contents of `buf`, containing `count` instances of `datatype` the process specified by the envelope information. *Envelope Information* 
