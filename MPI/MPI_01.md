@@ -32,6 +32,7 @@ It is an abstract view of data and execution.
 * **MPI_Comm_rank** :		 Determine my process identifier.
 * **MPI_Send**      :		 Send a message.
 * **MPI_Recv**      :		 Receive a message.
+
 MPI Hello World
 ```
 #include <stdio.h>
@@ -50,4 +51,5 @@ MPI_Finalize();
 return 0;
 }
 ```
-￼￼
+
+* **MPI_Send**(&buff, int count, MPI_Datatype, int dest, int tag, MPI_status *status)
