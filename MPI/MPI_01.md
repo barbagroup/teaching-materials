@@ -49,6 +49,7 @@ MPI_Finalize();
 return 0;
 }
 ```
+MPI defines a default communicator called MPI_COMM_WORLD which includes all the processes. A communicator defines a domain of communication.
 
 * **MPI_Send**(void *buf, int count, MPI_Datatype datatype, int dest, int tag, MPI_Comm comm)
 * **MPI_Recv**(void *buf, int count, MPI_Datatype datatype, int source, int tag, MPI_Comm comm, MPI_Status *status)
@@ -58,3 +59,15 @@ return 0;
 **MPI_Recv** receives `count` instances of `datatype` into `buf` from process given by envelope information, and return information on `status`.
 
 The received message tag is `status.MPI_TAG` and the rank of the sending process is `status.MPI_SOURCE`.
+
+### Avoiding Deadlocks
+```
+int a[10], b[10], myrank;
+MPI_Status status;
+...
+MPI_Comm_rank(MPI_COMM_WORLD, &myrank); if (myrank == 0) {
+MPI_Send(a, 10, MPI_INT, 1, 1, MPI_COMM_WORLD); } MPI_Send(b, 10, MPI_INT, 1, 2, MPI_COMM_WORLD);
+else if (myrank == 1) {
+MPI_Recv(b, 10, MPI_INT, 0, 2, MPI_COMM_WORLD);
+MPI_Recv(a, 10, MPI_INT, 0, 1, MPI_COMM_WORLD); }...
+```
