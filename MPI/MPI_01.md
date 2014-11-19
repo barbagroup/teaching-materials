@@ -104,3 +104,5 @@ T_comm(n) = a + b*n    for an n-byte message, and a >> b
 
 ### Data Movement 
 MPI_Bcast, MPI_Gather, MPI_Scatter are collective data movement routines, in which all processes interact with a distinguished root process to broadcast, gather, or scatter data, respectively. 
+
+![image](./image/collective.png)
