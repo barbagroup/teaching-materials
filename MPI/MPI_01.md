@@ -129,3 +129,5 @@ while (t<T) {
     t += dt;
 }
 ```
+
+MPI idea:
