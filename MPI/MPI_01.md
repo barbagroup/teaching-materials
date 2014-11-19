@@ -108,26 +108,3 @@ T_comm(n) = a + b*n    for an n-byte message, and a >> b
 ![image](./image/collective.png)
 
 ### A Finite Difference Example: 1D Heat Equation
-
-![image](./image/FD.png)
-
-Serial Code
-```
-t = 0;
-while (t<T) {
-    x = dx;
-    for (i=1; i<n; i++) {
-        u[i] = u_prev[i]
-              + kappa*dt/(dx*dx)*(u_prev[i-1]-2*u_prev[i]+u_prev[i+1])
-              + dt*f(x,t);
-        x += dx; 
-    }
-    u[0] = u[n] = 0.;
-    tmp = u_prev; 
-    u_prev = u; 
-    u = tmp;
-    t += dt;
-}
-```
-
-MPI idea:
