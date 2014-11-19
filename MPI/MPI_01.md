@@ -72,13 +72,16 @@ else if (taskid >= numtasks/2) {
   }
 ```
 ### Avoiding Deadlocks
+What will happen if we change the sequence of Send & Recv
 ```
-int a[10], b[10], myrank;
-MPI_Status status;
-...
-MPI_Comm_rank(MPI_COMM_WORLD, &myrank); if (myrank == 0) {
-MPI_Send(a, 10, MPI_INT, 1, 1, MPI_COMM_WORLD); } MPI_Send(b, 10, MPI_INT, 1, 2, MPI_COMM_WORLD);
-else if (myrank == 1) {
-MPI_Recv(b, 10, MPI_INT, 0, 2, MPI_COMM_WORLD);
-MPI_Recv(a, 10, MPI_INT, 0, 1, MPI_COMM_WORLD); }...
+if (taskid < numtasks/2) {
+  partner = numtasks/2 + taskid;
+  MPI_Send(&taskid, 1, MPI_INT, partner, 1, MPI_COMM_WORLD);
+  MPI_Recv(&message, 1, MPI_INT, partner, 1, MPI_COMM_WORLD, &status);
+  }
+else if (taskid >= numtasks/2) {
+  partner = taskid - numtasks/2;
+  MPI_Send(&taskid, 1, MPI_INT, partner, 1, MPI_COMM_WORLD);
+  MPI_Recv(&message, 1, MPI_INT, partner, 1, MPI_COMM_WORLD, &status);
+  }
 ```
