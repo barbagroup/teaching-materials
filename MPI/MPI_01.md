@@ -96,3 +96,7 @@ for(i=0; i<num_items; i++) {
 * avoid having all processes wait while one of them does some work, avoid sequential bottlenecks
 * distribute data and work evenly
 * but... the biggest issue is **Communication**
+
+Simplest Communication Time Model (time between send and completion of receive):
+T_comm(n) = a + b*n    for an n-byte message, and a >> b
+
