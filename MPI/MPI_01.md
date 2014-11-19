@@ -92,3 +92,7 @@ for(i=0; i<num_items; i++) {
    mybuffer[i] = 0;
 }
 ```
+### How to get good speedup
+* avoid having all processes wait while one of them does some work, avoid sequential bottlenecks
+* distribute data and work evenly
+* but... the biggest issue is **Communication**
