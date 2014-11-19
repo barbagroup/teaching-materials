@@ -85,3 +85,10 @@ else if (taskid >= numtasks/2) {
   MPI_Recv(&message, 1, MPI_INT, partner, 1, MPI_COMM_WORLD, &status);
   }
 ```
+Send and Recv are "blocking" until the local buffer is empty (send) or full (recv). So, the following code is correct.
+```
+MPI_Send(&mybuffer, num_items,...);
+for(i=0; i<num_items; i++) { 
+   mybuffer[i] = 0;
+}
+```
