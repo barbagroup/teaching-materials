@@ -99,6 +99,20 @@ Another method to avoid deadlock is using **Asyncronous Send and Recv**
 
 They return without removing the data from buffer. And caller may not overwrite buffer until **MPI_Wait**(*request, *status)
 
+```
+MPI_Status stats[2];
+MPI_Request reqs[2];
+if (taskid < numtasks/2) 
+  partner = numtasks/2 + taskid;
+else if (taskid >= numtasks/2) 
+  partner = taskid - numtasks/2;
+
+MPI_Irecv(&message, 1, MPI_INT, partner, 1, MPI_COMM_WORLD, &reqs[0]);
+MPI_Isend(&taskid, 1, MPI_INT, partner, 1, MPI_COMM_WORLD, &reqs[1]);
+
+/* now block until requests are complete */
+MPI_Waitall(2, reqs, stats);
+```
 ### How to get good speedup
 * avoid having all processes wait while one of them does some work, avoid sequential bottlenecks
 * distribute data and work evenly
