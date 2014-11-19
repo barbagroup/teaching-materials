@@ -92,6 +92,12 @@ for(i=0; i<num_items; i++) {
    mybuffer[i] = 0;
 }
 ```
+
+Another method to avoid deadlock is using **Asyncronous Send and Recv**
+* int MPI_Isend(*buf, count, MPI_Datatype, dest, tag, comm, MPI_Request *request)
+* int MPI_Irecv(*buf, count, MPI_Datatype, source, tag, comm, MPI_Request *request)
+
+
 ### How to get good speedup
 * avoid having all processes wait while one of them does some work, avoid sequential bottlenecks
 * distribute data and work evenly
