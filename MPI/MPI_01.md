@@ -53,4 +53,8 @@ return 0;
 * **MPI_Send**(void *buf, int count, MPI_Datatype datatype, int dest, int tag, MPI_Comm comm)
 * **MPI_Recv**(void *buf, int count, MPI_Datatype datatype, int source, int tag, MPI_Comm comm, MPI_Status *status)
 
-**MPI_Send** sends contents of `buf`, containing `count` instances of `datatype` the process specified by the envelope information. (Terminology envelope information compared to postal service). **MPI_Recv** receives `count` instances of `datatype` into `buf` from process given by envelope information, and return information on `status`.
+**MPI_Send** sends contents of `buf`, containing `count` instances of `datatype` the process specified by the envelope information. (Terminology envelope information compared to postal service). 
+
+**MPI_Recv** receives `count` instances of `datatype` into `buf` from process given by envelope information, and return information on `status`.
+
+The received message tag is `status.MPI_TAG` and the rank of the sending process is `status.MPI_SOURCE`.
