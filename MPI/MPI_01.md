@@ -23,7 +23,7 @@ It is an abstract view of data and execution.
 --------------------------------
 **Note**:
 * MPI is a library, not a language. MPI can be linked with C, C++, Fortran
-* MPI-2 is the current version, MPI-3 is under developement
+* MPI-2 is the current version, MPI-3 is under development
 
 ### Six Basics to Start with MPI
 * **MPI_Init**      :		 Initiate an MPI computation.
