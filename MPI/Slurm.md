@@ -17,7 +17,7 @@ debug           up    2:00:00      1  alloc node991
 debug           up    2:00:00      1   idle node992
 ```
 
-A **partition** is a set of compute nodes (computers dedicated to ... computing,) grouped logically. Typical examples include partitions dedicated to batch processing, debugging, post processing, or visualization.
+A **partition** is a set of compute nodes (computers dedicated to ... computing,) grouped logically. Typical examples include partitions dedicated to batch processing, debugging, post processing, or visualization. *Default partition* is marked with an asterisk. 
 
 * `sinfo -N` gives a node-oriented view
 ```
@@ -35,9 +35,22 @@ node991            1        debug alloc
 node992            1        debug idle
 ```
 
+* `squeue` : shows the list of jobs which are currently running or pending.
+```
+# squeue
+ JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON)
+666411     256gb mpileup-  mjm1366  R   21:26:46      1 node033
+666745     256gb submit.4 avoutchk  R    1:18:30      1 node037
+666419     debug Jacqueli j20_rose PD       0:00      1 (PartitionTimeLimit)
+668443      defq DrosoRTs zajitsch PD       0:00      1 (Resources)
+668442     debug     bash zajitsch PD      43:46      1 (Priority)
+```
+use `squeue --user=username` or `squeue --partition=partitionname` to filter the result.
+
 * `sbatch` : **submit a job script** for later execution. The script will typically contain one or more srun commands to launch parallel tasks.
 
 * `scancel` : **cancel a pending or running job** or job step. It can also be used to send an arbitrary signal to all processes associated with a running job or job step.
+
 
 
 
