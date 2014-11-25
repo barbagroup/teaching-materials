@@ -17,9 +17,12 @@ debug           up    2:00:00      1  alloc node991
 debug           up    2:00:00      1   idle node992
 ```
 
-sinfo -N gives a node-oriented view
+A **partition** is a set of compute nodes (computers dedicated to ... computing,) grouped logically. Typical examples include partitions dedicated to batch processing, debugging, post processing, or visualization.
+
+* `sinfo -N` gives a node-oriented view
 ```
 # sinfo -N
+NODELIST       NODES    PARTITION STATE
 node[001-032]     32          gpu alloc
 node[001-032]     32    gpu-noecc alloc
 node[033-168]    136        defq* alloc
