@@ -3,6 +3,7 @@
 ### Basic Commands
 * `sinfo` :  give an overview of the resources offered by the cluster
 ```
+# sinfo
 PARTITION    AVAIL  TIMELIMIT  NODES  STATE NODELIST
 defq*           up 14-00:00:0    136  alloc node[033-168]
 short           up 2-00:00:00     94  alloc node[097-190]
@@ -15,6 +16,22 @@ ivygpu-noecc    up 7-00:00:00     21  alloc node[333-353]
 debug           up    2:00:00      1  alloc node991
 debug           up    2:00:00      1   idle node992
 ```
+
+sinfo -N gives a node-oriented view
+```
+# sinfo -N
+node[001-032]     32          gpu alloc
+node[001-032]     32    gpu-noecc alloc
+node[033-168]    136        defq* alloc
+node[033-040]      8        256gb alloc
+node[041-064]     24        128gb alloc
+node[097-190]     94        short alloc
+node[333-353]     21 ivygpu-noecc alloc
+node[333-353]     21       ivygpu alloc
+node991            1        debug alloc
+node992            1        debug idle
+```
+
 * `sbatch` : **submit a job script** for later execution. The script will typically contain one or more srun commands to launch parallel tasks.
 
 * `scancel` : **cancel a pending or running job** or job step. It can also be used to send an arbitrary signal to all processes associated with a running job or job step.
