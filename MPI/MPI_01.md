@@ -113,6 +113,9 @@ MPI_Isend(&taskid, 1, MPI_INT, partner, 1, MPI_COMM_WORLD, &reqs[1]);
 /* now block until requests are complete */
 MPI_Waitall(2, reqs, stats);
 ```
+
+### A Finite Difference Example: 2D Heat Equation
+
 ### How to get good speedup
 * avoid having all processes wait while one of them does some work, avoid sequential bottlenecks
 * distribute data and work evenly
@@ -128,4 +131,4 @@ T_comm(n) = a + b*n    for an n-byte message, and a >> b
 
 ![image](./image/collective.png)
 
-### A Finite Difference Example: 2D Heat Equation
+
