@@ -71,7 +71,10 @@ $ sbatch job.qsub
 sbatch: Submitted batch job 666827
 ```
 
-* `scancel` : **cancel a pending or running job** or job step. It can also be used to send an arbitrary signal to all processes associated with a running job or job step.
+* `scancel` : **cancel a pending or running job** .
+```
+$ scancel 666827
+```
 
 
 
