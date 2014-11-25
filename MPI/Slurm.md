@@ -76,32 +76,17 @@ sbatch: Submitted batch job 666827
 $ scancel 666827
 ```
 
+### Note:
+* running a multi-process program (SPMD paradigm, e.g. with MPI)
+```
+#SBATCH --ntasks=4
+```
+
+* running a multithreaded program (shared memory paradigm, e.g. with OpenMP or pthreads)
+```
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=4
+```
+In the Slurm context, a task is to be understood as a process. So a multi-process program is made of several tasks. By contrast, a multithreaded program is composed of only one task, which uses several CPUs.
 
 
-
-sacct is used to report job or job step accounting information about active or completed jobs.
-
-salloc is used to allocate resources for a job in real time. Typically this is used to allocate resources and spawn a shell. The shell is then used to execute srun commands to launch parallel tasks.
-
-sattach is used to attach standard input, output, and error plus signal capabilities to a currently running job or job step. One can attach to and detach from jobs multiple times.
-
-
-sbcast is used to transfer a file from local disk to local disk on the nodes allocated to a job. This can be used to effectively use diskless compute nodes or provide improved performance relative to a shared file system.
-
-
-
-scontrol is the administrative tool used to view and/or modify SLURM state. Note that many scontrol commands can only be executed as user root.
-
-sinfo reports the state of partitions and nodes managed by SLURM. It has a wide variety of filtering, sorting, and formatting options.
-
-smap reports state information for jobs, partitions, and nodes managed by SLURM, but graphically displays the information to reflect network topology.
-
-squeue reports the state of jobs or job steps. It has a wide variety of filtering, sorting, and formatting options. By default, it reports the running jobs in priority order and then the pending jobs in priority order.
-
-srun is used to submit a job for execution or initiate job steps in real time. srun has a wide variety of options to specify resource requirements, including: minimum and maximum node count, processor count, specific nodes to use or not use, and specific node characteristics (so much memory, disk space, certain required features, etc.). A job can contain multiple job steps executing sequentially or in parallel on independent or shared nodes within the job's node allocation.
-
-smap reports state information for jobs, partitions, and nodes managed by SLURM, but graphically displays the information to reflect network topology.
-
-strigger is used to set, get or view event triggers. Event triggers include things such as nodes going down or jobs approaching their time limit.
-
-sview is a graphical user interface to get and update state information for jobs, partitions, and nodes managed by SLURM.
