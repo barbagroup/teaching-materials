@@ -47,6 +47,26 @@ node992            1        debug idle
 ```
 use `squeue --user=username` or `squeue --partition=partitionname` to filter the result.
 
+### Create a Job
+The typical way of creating a job is to write a **submission script**. A submission script is a shell script, e.g. a Bash script, whose comments, if they are prefixed with SBATCH, are understood by Slurm as parameters describing resource requests and other submissions options. You can get the complete list of parameters from the sbatch manpage `man sbatch`.
+
+```
+# vim job.qsub
+
+#!/bin/bash
+
+#SBATCH --job-name="hello"
+#SBATCH --ntasks=8
+#SBATCH --time=00:05:00
+#SBATCH --output=slurm-job-%j.out
+#SBATCH --error=slurm-job-%j.err
+#SBATCH --partition=short
+
+mpirun -n $SLURM_NPROCS ./hello
+```
+
+
+
 * `sbatch` : **submit a job script** for later execution. The script will typically contain one or more srun commands to launch parallel tasks.
 
 * `scancel` : **cancel a pending or running job** or job step. It can also be used to send an arbitrary signal to all processes associated with a running job or job step.
