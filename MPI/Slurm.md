@@ -65,9 +65,11 @@ The typical way of creating a job is to write a **submission script**. A submiss
 mpirun -n $SLURM_NPROCS ./hello
 ```
 
-
-
-* `sbatch` : **submit a job script** for later execution. The script will typically contain one or more srun commands to launch parallel tasks.
+* `sbatch` : **submit a job script** for later execution. 
+```
+$ sbatch job.qsub
+sbatch: Submitted batch job 666827
+```
 
 * `scancel` : **cancel a pending or running job** or job step. It can also be used to send an arbitrary signal to all processes associated with a running job or job step.
 
