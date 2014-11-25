@@ -1,9 +1,23 @@
 ##Slurm - Simple Linux Utility for Resource Management
 
 ### Basic Commands
+* `sinfo` :  give an overview of the resources offered by the cluster
+```
+PARTITION    AVAIL  TIMELIMIT  NODES  STATE NODELIST
+defq*           up 14-00:00:0    136  alloc node[033-168]
+short           up 2-00:00:00     94  alloc node[097-190]
+128gb           up 14-00:00:0     24  alloc node[041-064]
+256gb           up 14-00:00:0      8  alloc node[033-040]
+gpu             up 7-00:00:00     32  alloc node[001-032]
+gpu-noecc       up 7-00:00:00     32  alloc node[001-032]
+ivygpu          up 7-00:00:00     21  alloc node[333-353]
+ivygpu-noecc    up 7-00:00:00     21  alloc node[333-353]
+debug           up    2:00:00      1  alloc node991
+debug           up    2:00:00      1   idle node992
+```
+* `sbatch` : **submit a job script** for later execution. The script will typically contain one or more srun commands to launch parallel tasks.
 
-* sbatch is used to submit a job script for later execution. The script will typically contain one or more srun commands to launch parallel tasks.
- 
+* `scancel` : **cancel a pending or running job** or job step. It can also be used to send an arbitrary signal to all processes associated with a running job or job step.
 
 
 
@@ -16,7 +30,7 @@ sattach is used to attach standard input, output, and error plus signal capabili
 
 sbcast is used to transfer a file from local disk to local disk on the nodes allocated to a job. This can be used to effectively use diskless compute nodes or provide improved performance relative to a shared file system.
 
-scancel is used to cancel a pending or running job or job step. It can also be used to send an arbitrary signal to all processes associated with a running job or job step.
+
 
 scontrol is the administrative tool used to view and/or modify SLURM state. Note that many scontrol commands can only be executed as user root.
 
