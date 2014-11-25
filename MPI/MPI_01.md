@@ -128,4 +128,4 @@ T_comm(n) = a + b*n    for an n-byte message, and a >> b
 
 ![image](./image/collective.png)
 
-### A Finite Difference Example: 1D Heat Equation
+### A Finite Difference Example: 2D Heat Equation
