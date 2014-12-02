@@ -3,6 +3,7 @@
 ## 2014
 | Date | Presenter | Topic |
 |:----:|:---------:|:------|
+| 02 Dec | Tingyu  | **MPI**: introduction |
 | 05 Nov | Gil     | Julia |
 | 22 Oct | Olivier | Single core optimization (FFT application) |
 | 08 Oct | Anush   | Single core optimization (continued) |
