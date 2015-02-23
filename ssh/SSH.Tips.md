@@ -24,9 +24,10 @@ Defaults for keypairs are a little bit weak -- you need two pairs of keys:
 1.  ed25519 key -- the latest standard key, based on elliptic curve craziness and very secure.  This will become the default keytype in about a year.
 2. rsa key -- because lots of people won't update their systems and all current systems support rsa
 
-> ssh-keygen -t ed25519 -o -a 100
-> ssh-keygen -t rsa -b 4096 -o -a 100
-
+```
+ssh-keygen -t ed25519 -o -a 100
+ssh-keygen -t rsa -b 4096 -o -a 100
+```
 -t = keytype
 
 -b = bits in the key (higher is better)
@@ -37,21 +38,26 @@ Choose a good passphrase.  If your private key is stolen, it's the only thing pr
 
 ###Copy keys to blackbird
 
-> cd ~/.ssh
-> ssh-copy-id -i id_ed25519 blackbird.seas.gwu.edu
-> ssh-copy-id -i id_rsa blackbird.seas.gwu.edu
-
+```
+cd ~/.ssh
+ssh-copy-id -i id_ed25519 blackbird.seas.gwu.edu
+ssh-copy-id -i id_rsa blackbird.seas.gwu.edu
+```
 ###Confirm you can log in with your key
 
-> ssh blackbird.seas.gwu.edu
-> exit
+```
+ssh blackbird.seas.gwu.edu
+exit
+```
 
 ###Disable password logins
 
 On your machine in /etc/ssh/sshd_config set
 
-> PasswordAuthentication no
-> ChallengeResponseAuthentication no
+```
+PasswordAuthentication no
+ChallengeResponseAuthentication no
+```
 
 (I'll change it on blackbird)
 
@@ -87,12 +93,15 @@ ssh-copy-id to colonial one?
 ###Github
 
 Go to: https://github.com/settings/ssh
+
 Upload your id_ed25519.pub key
 
 Now go to your local AeroPython git repo, cd into the config directory and edit the config file
 
-> cd AeroPython/.git
-> vim config
+```
+cd AeroPython/.git
+vim config
+```
 
 Under remote, change
 
@@ -116,8 +125,10 @@ Mount a directory on a remote machine via SSH on your local machine.  This is ho
 
 Now create a local mountpoint and use sshfs to mount this folder from blackbird
 
-> mkdir mnt
-> sshfs blackbird.seas.gwu.edu:/home/gil/ ~/mnt
+```
+mkdir mnt
+sshfs blackbird.seas.gwu.edu:/home/gil/ ~/mnt
+```
 
 to unmount
 
