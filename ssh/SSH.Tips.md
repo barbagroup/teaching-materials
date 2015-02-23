@@ -104,6 +104,24 @@ to
 
 Now you never have to type your github username+password again.  (If you clone the repo using the SSH address initially then you don't need to make this change)
 
+##Awesome SSH utilities
+
+###sshfs
+
+Mount a directory on a remote machine via SSH on your local machine.  This is how we're going to be sharing files in the new lab.
+
+> sudo pacman -S sshfs
+
+> sudo apt-get install sshfs
+
+Now create a local mountpoint and use sshfs to mount this folder from blackbird
+
+> mkdir mnt
+> sshfs blackbird.seas.gwu.edu:/home/gil/ ~/mnt
+
+to unmount
+
+> fusermount -u ~/mnt
 
 ###SSH Configuration Files
 
