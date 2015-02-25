@@ -134,6 +134,13 @@ to unmount
 
 > fusermount -u ~/mnt
 
+##SSH shortcuts
+
+Edit
+
+`~/.ssh/config`
+
+
 ###SSH Configuration Files
 
 *  /etc/ssh/ssh_config -- ssh client configuration
