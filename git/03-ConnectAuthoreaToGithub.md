@@ -48,6 +48,8 @@ Click on `Generate ssh key pair`.
 
 Copy the key and deploy it on the Github repository (go to `Settings`->`Deploy keys`).
 
+Allow write access, so you can push to this repository (Deploy keys always have pull access).
+
 On Authorea, paste the SSH url on the Github repository, which is `git@github.com:mesnardo/myproposal.git`.
 
 From Authorea, copy the webhook url (it looks something like `https://www.authorea.com/article_git_access_bridges/web_hook/xxxx`).
